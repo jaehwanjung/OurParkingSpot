@@ -60,7 +60,7 @@
 	              			</ul>
 	              			<form class="navbar-form navbar-left" role="search">
 						    	<div class="form-group">
-						          <input type="text" class="form-control"  style="width: 300px;" placeholder="Type in address to book a spot">
+						          <input type="text" class="form-control" placeholder="Type in address to book a spot">
 						        </div>
 						        <button type="submit" class="btn btn-default">Search</button>
 						    </form>
@@ -74,7 +74,24 @@
 				                </li>     		                
 	              			</ul>
 	              			<ul class="nav navbar-nav navbar-right">
-		              			<li><a href="#"><span class="glyphicon glyphicon-log-in"></span> LOGIN</a></li>              				
+	              			<% 
+	              				UserService userService = UserServiceFactory.getUserService();
+	              				User user = userService.getCurrentUser();
+	              				if (user != null) {
+	              					pageContext.setAttribute("user", user);	
+	              			%>
+		              			<li><a href="<%= userService.createLogoutURL(request.getRequestURI())%>">
+		              				<span class="glyphicon glyphicon-log-out"></span> Logged as ${fn:escapeXml(user.nickname)}</a>
+		              			</li>    
+		              		<%
+		              			} else {
+		              		%>   
+		              			<li><a href="<%= userService.createLoginURL(request.getRequestURI())%>">
+		              				<span class="glyphicon glyphicon-log-in"></span> LOGIN</a>
+		              			</li>   
+		              		<%
+		              			}
+		              		%>      				
 	              			</ul>
 	            		</div>
 	          		</div>
