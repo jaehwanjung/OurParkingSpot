@@ -41,7 +41,7 @@
 	<div class="navbar-wrapper">
     	<div class="container">
         	<div class="navbar navbar-inverse navbar-static-top" role="navigation">
-          		<div class="container">
+          		<div class="container-fluid">
             		<div class="navbar-header">
               			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
 			                <span class="sr-only">Toggle navigation</span>
@@ -53,22 +53,27 @@
             		</div>
             		<div class="navbar-collapse collapse">
               			<ul class="nav navbar-nav">
-			                <li class="active"><a href="#">Home</a></li>
+              				<li class="active"><a href="#">Home</a></li>
 			                <li><a href="#">About</a></li>
+			                <li><a href="#">Manage Bookings</a></li>	                
+              			</ul>
+              			<form class="navbar-form navbar-left" role="search">
+					    	<div class="form-group">
+					          <input type="text" class="form-control"  style="width: 300px;" placeholder="Type in address to book a spot">
+					        </div>
+					        <button type="submit" class="btn btn-default">Search</button>
+					    </form>
+					    <ul class="nav navbar-nav">
 			                <li class="dropdown">
-			                	<a href="#" class="dropdown-toggle" data-toggle="dropdown">Host<b class="caret"></b></a>
+			                	<a href="#" class="dropdown-toggle" data-toggle="dropdown">Are You A Host ? <b class="caret"></b></a>
 			                  	<ul class="dropdown-menu">
 				                    <li><a href="#">Host A New Spot</a></li>
 				                    <li><a href="#">Manage Hosted Spots</a></li>
-			                  	</ul>                  
-			                </li>     
-			                <li class="dropdown">
-			                	<a href="#" class="dropdown-toggle" data-toggle="dropdown">Client<b class="caret"></b></a>
-			                  	<ul class="dropdown-menu">
-				                    <li><a href="#">Book A New Spot</a></li>
-				                    <li><a href="#">Manage Bookings</a></li>
-			                 	</ul>                  
-			                </li>         
+			                  	</ul>                  			                  	
+			                </li>     		                
+              			</ul>
+              			<ul class="nav navbar-nav navbar-right">
+	              			<li><a href="#"><span class="glyphicon glyphicon-log-in"></span> LOGIN</a></li>              				
               			</ul>
             		</div>
           		</div>
