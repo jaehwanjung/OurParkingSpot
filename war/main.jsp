@@ -38,48 +38,74 @@
 	
 	<body> 
 	
-	<div class="navbar-wrapper">
-    	<div class="container">
-        	<div class="navbar navbar-inverse navbar-static-top" role="navigation">
-          		<div class="container-fluid">
-            		<div class="navbar-header">
-              			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-			                <span class="sr-only">Toggle navigation</span>
-			                <span class="icon-bar"></span>
-			                <span class="icon-bar"></span>
-			                <span class="icon-bar"></span>
-              			</button>
-              			<a class="navbar-brand" href="#">OurParkingSpot</a>
-            		</div>
-            		<div class="navbar-collapse collapse">
-              			<ul class="nav navbar-nav">
-              				<li class="active"><a href="#">Home</a></li>
-			                <li><a href="#">About</a></li>
-			                <li><a href="#">Manage Bookings</a></li>	                
-              			</ul>
-              			<form class="navbar-form navbar-left" role="search">
-					    	<div class="form-group">
-					          <input type="text" class="form-control"  style="width: 300px;" placeholder="Type in address to book a spot">
-					        </div>
-					        <button type="submit" class="btn btn-default">Search</button>
-					    </form>
-					    <ul class="nav navbar-nav">
-			                <li class="dropdown">
-			                	<a href="#" class="dropdown-toggle" data-toggle="dropdown">Are You A Host ? <b class="caret"></b></a>
-			                  	<ul class="dropdown-menu">
-				                    <li><a href="#">Host A New Spot</a></li>
-				                    <li><a href="#">Manage Hosted Spots</a></li>
-			                  	</ul>                  			                  	
-			                </li>     		                
-              			</ul>
-              			<ul class="nav navbar-nav navbar-right">
-	              			<li><a href="#"><span class="glyphicon glyphicon-log-in"></span> LOGIN</a></li>              				
-              			</ul>
-            		</div>
-          		</div>
-        	</div>
-      	</div>
-    </div>
+	<!--  Navbar  -->
+		<div class="navbar-wrapper">
+	    	<div class="container">
+	        	<div class="navbar navbar-inverse navbar-static-top" role="navigation">
+	          		<div class="container-fluid">
+	            		<div class="navbar-header">
+	              			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+				                <span class="sr-only">Toggle navigation</span>
+				                <span class="icon-bar"></span>
+				                <span class="icon-bar"></span>
+				                <span class="icon-bar"></span>
+	              			</button>
+	              			<a class="navbar-brand" href="#">OurParkingSpot</a>
+	            		</div>
+	            		<div class="navbar-collapse collapse">
+	              			<ul class="nav navbar-nav">
+	              				<li class="active"><a href="#">Home</a></li>
+				                <li><a href="#">About</a></li>
+				                <li><a href="#">Manage Bookings</a></li>	                
+	              			</ul>
+	              			<form class="navbar-form navbar-left" role="search">
+						    	<div class="form-group">
+						          <input type="text" class="form-control"  style="width: 300px;" placeholder="Type in address to book a spot">
+						        </div>
+						        <button type="submit" class="btn btn-default">Search</button>
+						    </form>
+						    <ul class="nav navbar-nav">
+				                <li class="dropdown">
+				                	<a href="#" class="dropdown-toggle" data-toggle="dropdown">Are You A Host ? <b class="caret"></b></a>
+				                  	<ul class="dropdown-menu">
+					                    <li><a href="#">Host A New Spot</a></li>
+					                    <li><a href="#">Manage Hosted Spots</a></li>
+				                  	</ul>                  			                  	
+				                </li>     		                
+	              			</ul>
+	              			<ul class="nav navbar-nav navbar-right">
+		              			<li><a href="#"><span class="glyphicon glyphicon-log-in"></span> LOGIN</a></li>              				
+	              			</ul>
+	            		</div>
+	          		</div>
+	        	</div>
+	      	</div>
+	    </div>
+    <!-- End of Navbar -->
+    
+    <!-- Carousel -->
+	    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+	      <!-- Indicators -->
+	      <ol class="carousel-indicators">
+	        <li data-target="#myCarousel" data-slide-to="0" class=""></li>
+	        <li data-target="#myCarousel" data-slide-to="1" class=""></li>
+	        <li data-target="#myCarousel" data-slide-to="2" class="active"></li>
+	      </ol>
+	      <div class="carousel-inner">
+	        <div class="item active">
+	          <div class="container">
+	            <div class="carousel-caption">
+	              <h1>Example headline.</h1>
+	              <p>Note: If you're viewing this page via a <code>file://</code> URL, the "next" and "previous" Glyphicon buttons on the left and right might not load/display properly due to web browser security rules.</p>
+	              <p><a class="btn btn-lg btn-primary" href="http://getbootstrap.com/examples/carousel/#" role="button">Sign up today</a></p>
+	            </div>
+	          </div>
+	        </div>
+	      </div>
+	      <a class="left carousel-control" href="http://getbootstrap.com/examples/carousel/#myCarousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+	      <a class="right carousel-control" href="http://getbootstrap.com/examples/carousel/#myCarousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+	    </div>
+	<!-- End of Carousel -->
     
     <!-- Bootstrap core JavaScript -->
     <script src="./js/jquery-1.11.0.js"></script>
