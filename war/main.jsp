@@ -27,108 +27,154 @@
 	    <meta name="author" content="">
 	    
 	    <title>OurParkingSpot</title>
+	    <link rel="shortcut icon" href="http://getbootstrap.com/assets/ico/favicon.ico">
+	    <link type="text/css" href="./css/myCss.css" rel="stylesheet">
+        <!-- Bootstrap core CSS -->
+        <link type="text/css" href="./css/bootstrap.css" rel="stylesheet">
+	    <script type="text/javascript" src="/js/myJs.js"></script>        
+	    <script type="text/javascript"
+	      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDh0t8xGJIIHStBk-MN3wYzC-nn8SJ09U4&sensor=true">
+	    </script>    
+	    <script type="text/javascript"> 
+	      
+	        function initialize() {
+	                    
+	            var myLatlng = new google.maps.LatLng(37.33152141760375,-122.04732071026367);   
+	           
+	            var mapOptions = {
+	              center: myLatlng,
+	              zoom: 12
+	            };
+	            
+	            map = new google.maps.Map(document.getElementById("map-canvas"),
+	              mapOptions);      
+	
+	            var mrkID = "0";
+	            var gstBkNm = guestbookNameString; //"default";
+	            var msgbox = "msgbox_"+mrkID;       
+	            var msglist = "msglist_"+mrkID;
+	                                    
+	            var contentString  = '#' + mrkID + '<div id="content">' +  '<div class ="kitten"><div class ="boxbackground">' +    
+	                  '<div class="msglist" id="'+ msglist +'"></div></div></div>' + '</div>' +
+	                  '<textarea id="'+ msgbox +'" rows="2" cols="50"></textarea>' +              
+	                  '<input type="button" value="Post" onclick="postAjaxRequest('+ 
+	                    "'" + msgbox + "', '" + mrkID + "', '" + gstBkNm + "', '" + msglist + "'" +')"/>';  
+	            
+	            var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
+	            var icons = {
+	                parking: {
+	                    icon: iconBase + 'parking_lot_maps.png'
+	                },
+	                library: {
+	                    icon: iconBase + 'library_maps.png'
+	                },
+	                info: {
+	                    icon: iconBase + 'info-i_maps.png'
+	                }
+	            };
+	                           
+	            var marker = new google.maps.Marker({       
+	              position: myLatlng,
+	              map: map,
+	              icon: icons['parking'].icon,            
+	              title: ''+mrkID
+	            });    
+	            
+	            addInfowindow(marker, contentString);
+	                    
+	            // Load the selected markers            
+	            loadMarkers();       
+	        }      
 	    
-    	<link rel="shortcut icon" href="http://getbootstrap.com/assets/ico/favicon.ico">
-    	<!-- Bootstrap core CSS -->
-    	<link type="text/css" href="./css/bootstrap.css" rel="stylesheet">
-    	<!-- Custom styles for Bootstrap Carousel -->
-    	<link type="text/css" href="./css/carousel.css" rel="stylesheet">
+	        google.maps.event.addDomListener(window, 'load', initialize);
+	    </script>
+	    
+    	
 		
 	</head>
 	
-	<body> 
+    <body>
+        <div class="container">
+        
+            <!--  Navbar  -->
+                <div class="navbar-wrapper navbar-fixed-top" style="margin-top:10px">
+                    <div class="container">
+                        <div class="navbar navbar-inverse" role="navigation">
+                            <div class="container-fluid">
+                                <div class="navbar-header">
+                                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+										<span class="sr-only">Toggle navigation</span>
+										<span class="icon-bar"></span>
+										<span class="icon-bar"></span>
+										<span class="icon-bar"></span>
+									</button>
+                                    <a class="navbar-brand" href="#">OurParkingSpot</a>
+                                </div>
+                                <div class="navbar-collapse collapse">
+									<ul class="nav navbar-nav">
+										<li class="active"><a href="#">Home</a></li>
+										<li><a href="#">About</a></li>
+										<li><a href="#">Manage Bookings</a></li>	                
+									</ul>
+									<form class="navbar-form navbar-left" role="search">
+										<div class="form-group">
+										<input type="text" class="form-control" placeholder="Type in address to book a spot">
+										</div>
+										<button type="submit" class="btn btn-default">Search</button>
+									</form>
+									<ul class="nav navbar-nav">
+										<li class="dropdown">
+											<a href="#" class="dropdown-toggle" data-toggle="dropdown">Are You A Host ? <b class="caret"></b></a>
+											<ul class="dropdown-menu">
+												<li><a href="#">Host A New Spot</a></li>
+												<li><a href="#">Manage Hosted Spots</a></li>
+											</ul>                  			                  	
+										</li>     		                
+									</ul>
+                                    <ul class="nav navbar-nav navbar-right">
+									<% 
+										UserService userService = UserServiceFactory.getUserService();
+										User user = userService.getCurrentUser();
+										if (user != null) {
+										pageContext.setAttribute("user", user);	
+									%>
+										<li><a href="<%= userService.createLogoutURL(request.getRequestURI())%>">
+										<span class="glyphicon glyphicon-log-out"></span> Logged as ${fn:escapeXml(user.nickname)}</a>
+										</li>    
+									<%
+									   } else {
+									%>   
+										<li><a href="<%= userService.createLoginURL(request.getRequestURI())%>">
+										<span class="glyphicon glyphicon-log-in"></span> LOGIN</a>
+										</li>   
+									<%
+									   }
+									%>      				
+									</ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <!-- End of Navbar -->
+            
+            <!-- Main Page -->                
+                <div class="jumbotron mainPage">
+                    <div id="map-canvas" class="mapCanvas"></div>
+                </div>
+                <script>
+                    adjustMapHeight();
+                </script>
+            <!-- End of Main Page -->
+            
+        </div>
+
+
+
+	<!-- Bootstrap core JavaScript -->
+	<script src="./js/jquery-1.11.0.js"></script>
+	<script src="./js/bootstrap.min.js"></script>
 	
-	<!--  Navbar  -->
-		<div class="navbar-wrapper">
-	    	<div class="container">
-	        	<div class="navbar navbar-inverse navbar-static-top" role="navigation">
-	          		<div class="container-fluid">
-	            		<div class="navbar-header">
-	              			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-				                <span class="sr-only">Toggle navigation</span>
-				                <span class="icon-bar"></span>
-				                <span class="icon-bar"></span>
-				                <span class="icon-bar"></span>
-	              			</button>
-	              			<a class="navbar-brand" href="#">OurParkingSpot</a>
-	            		</div>
-	            		<div class="navbar-collapse collapse">
-	              			<ul class="nav navbar-nav">
-	              				<li class="active"><a href="#">Home</a></li>
-				                <li><a href="#">About</a></li>
-				                <li><a href="#">Manage Bookings</a></li>	                
-	              			</ul>
-	              			<form class="navbar-form navbar-left" role="search">
-						    	<div class="form-group">
-						          <input type="text" class="form-control" placeholder="Type in address to book a spot">
-						        </div>
-						        <button type="submit" class="btn btn-default">Search</button>
-						    </form>
-						    <ul class="nav navbar-nav">
-				                <li class="dropdown">
-				                	<a href="#" class="dropdown-toggle" data-toggle="dropdown">Are You A Host ? <b class="caret"></b></a>
-				                  	<ul class="dropdown-menu">
-					                    <li><a href="#">Host A New Spot</a></li>
-					                    <li><a href="#">Manage Hosted Spots</a></li>
-				                  	</ul>                  			                  	
-				                </li>     		                
-	              			</ul>
-	              			<ul class="nav navbar-nav navbar-right">
-	              			<% 
-	              				UserService userService = UserServiceFactory.getUserService();
-	              				User user = userService.getCurrentUser();
-	              				if (user != null) {
-	              					pageContext.setAttribute("user", user);	
-	              			%>
-		              			<li><a href="<%= userService.createLogoutURL(request.getRequestURI())%>">
-		              				<span class="glyphicon glyphicon-log-out"></span> Logged as ${fn:escapeXml(user.nickname)}</a>
-		              			</li>    
-		              		<%
-		              			} else {
-		              		%>   
-		              			<li><a href="<%= userService.createLoginURL(request.getRequestURI())%>">
-		              				<span class="glyphicon glyphicon-log-in"></span> LOGIN</a>
-		              			</li>   
-		              		<%
-		              			}
-		              		%>      				
-	              			</ul>
-	            		</div>
-	          		</div>
-	        	</div>
-	      	</div>
-	    </div>
-    <!-- End of Navbar -->
-    
-    <!-- Carousel -->
-	    <div id="myCarousel" class="carousel slide" data-ride="carousel">
-	      <!-- Indicators -->
-	      <ol class="carousel-indicators">
-	        <li data-target="#myCarousel" data-slide-to="0" class=""></li>
-	        <li data-target="#myCarousel" data-slide-to="1" class=""></li>
-	        <li data-target="#myCarousel" data-slide-to="2" class="active"></li>
-	      </ol>
-	      <div class="carousel-inner">
-	        <div class="item active">
-	          <div class="container">
-	            <div class="carousel-caption">
-	              <h1>Example headline.</h1>
-	              <p>Note: If you're viewing this page via a <code>file://</code> URL, the "next" and "previous" Glyphicon buttons on the left and right might not load/display properly due to web browser security rules.</p>
-	              <p><a class="btn btn-lg btn-primary" href="http://getbootstrap.com/examples/carousel/#" role="button">Sign up today</a></p>
-	            </div>
-	          </div>
-	        </div>
-	      </div>
-	      <a class="left carousel-control" href="http://getbootstrap.com/examples/carousel/#myCarousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
-	      <a class="right carousel-control" href="http://getbootstrap.com/examples/carousel/#myCarousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
-	    </div>
-	<!-- End of Carousel -->
-    
-    <!-- Bootstrap core JavaScript -->
-    <script src="./js/jquery-1.11.0.js"></script>
-    <script src="./js/bootstrap.min.js"></script>
-    <script src="./js/docs.min.js"></script>
-	
-	</body>
+</body>
 	
 </html>
