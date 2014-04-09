@@ -3,9 +3,84 @@ var xmlHttpReq = null;
 var selectedMarkerID;
 var guestbookNameString = "";
 
+//====================================================================================================================
+
 function adjustMapHeight() {
 	document.getElementById("map-canvas").style.height= screen.height - 300 + "px";
 }
+
+//====================================================================================================================
+
+function centerMapOnUser(currentMap)
+{		
+	if (navigator.geolocation)
+	{
+		navigator.geolocation.getCurrentPosition(function(position){
+			var latitude = position.coords.latitude;
+	        var longitude = position.coords.longitude;
+	        var geolocation = new google.maps.LatLng(latitude, longitude);
+	        centerMapOn(geolocation, currentMap);
+	        addUserMarker(geolocation, currentMap);
+		},showError,{timeout:5000, enableHighAccuracy: true});
+	}
+	else
+	{
+	  	handleNoGeolocationSupport();
+	}
+}
+
+function centerMapOn(location, currentMap) 
+{
+	currentMap.setCenter(location);
+}
+
+function showError(error)
+{
+	switch(error.code) 
+	{
+		case error.PERMISSION_DENIED:
+	      geoField.value="User denied the request for Geolocation."
+	      break;
+	    case error.POSITION_UNAVAILABLE:
+	      geoField.value="Location information is unavailable."
+	      break;
+	    case error.TIMEOUT:
+	      geoField.value="The request to get user location timed out."
+	      break;
+	    case error.UNKNOWN_ERROR:
+	      geoField.value="An unknown error occurred."
+	      break;
+    }
+}
+
+function handleNoGeolocationSupport() 
+{
+	alert("Geolocation not supported by your browser. User location not found.");
+}
+
+//====================================================================================================================
+ 
+function addUserMarker(userLocation, currentMap) {
+	var userIcon = 'https://maps.gstatic.com/mapfiles/ms2/micons/red-dot.png'
+	var marker = new google.maps.Marker({position: userLocation,
+										 map: currentMap,
+										 icon: userIcon,
+										 title: 'Your Position'});	
+	var contentString = '<p>This is your location</p>';
+	addInfowindow(marker, contentString);
+}
+
+function addInfoWindow(marker, content) {
+	var infowindow = new google.maps.InfoWindow({content: content});
+	google.maps.event.addListener(marker, 'click', function() {
+		selectedMarkerID = marker.getTitle();
+		infowindow.setContent(""+content);
+		infowindow.setPosition(marker.getPosition());
+		infowindow.open(marker.get('map'), marker);		 
+	});
+}
+
+//====================================================================================================================
 
 function loadMarkers() {
 	//alert("loadMarkers");

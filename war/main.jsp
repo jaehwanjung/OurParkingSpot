@@ -17,9 +17,10 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <html>
-
+<!-- ============================================================================================================================= -->
+<!-- ============================================================================================================================= -->
 	<head>
-
+<!-- ============================================================================================================================= -->
 	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 	    <meta name="viewport" content="width=device-width, initial-scale=1">
 	    <meta name="description" content="">
@@ -30,67 +31,25 @@
 	    <link rel="shortcut icon" href="http://getbootstrap.com/assets/ico/favicon.ico">
 	    <link type="text/css" href="./css/myCss.css" rel="stylesheet">
         <link type="text/css" href="./css/bootstrap.css" rel="stylesheet">
-        
+<!-- ============================================================================================================================= -->
+    <!-- Javascripts -->
 	    <script type="text/javascript" src="/js/myJs.js"></script>        
 	    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDh0t8xGJIIHStBk-MN3wYzC-nn8SJ09U4&sensor=true"> </script> 
-	    <script type="text/javascript"> 
-	      
-	        function initialize() {
-	                    
-	            var myLatlng = new google.maps.LatLng(37.33152141760375,-122.04732071026367);   
-	           
+	    <script type="text/javascript"> 	      
+	        function initialize() {	  
+	            var vancouverLatLng = new google.maps.LatLng(49.2842,-123.1211);  
 	            var mapOptions = {
-	              center: myLatlng,
-	              zoom: 12
-	            };
-	            
-	            map = new google.maps.Map(document.getElementById("map-canvas"),
-	              mapOptions);      
-	
-	            var mrkID = "0";
-	            var gstBkNm = guestbookNameString; //"default";
-	            var msgbox = "msgbox_"+mrkID;       
-	            var msglist = "msglist_"+mrkID;
-	                                    
-	            var contentString  = '#' + mrkID + '<div id="content">' +  '<div class ="kitten"><div class ="boxbackground">' +    
-	                  '<div class="msglist" id="'+ msglist +'"></div></div></div>' + '</div>' +
-	                  '<textarea id="'+ msgbox +'" rows="2" cols="50"></textarea>' +              
-	                  '<input type="button" value="Post" onclick="postAjaxRequest('+ 
-	                    "'" + msgbox + "', '" + mrkID + "', '" + gstBkNm + "', '" + msglist + "'" +')"/>';  
-	            
-	            var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
-	            var icons = {
-	                parking: {
-	                    icon: iconBase + 'parking_lot_maps.png'
-	                },
-	                library: {
-	                    icon: iconBase + 'library_maps.png'
-	                },
-	                info: {
-	                    icon: iconBase + 'info-i_maps.png'
-	                }
-	            };
-	                           
-	            var marker = new google.maps.Marker({       
-	              position: myLatlng,
-	              map: map,
-	              icon: icons['parking'].icon,            
-	              title: ''+mrkID
-	            });    
-	            
-	            addInfowindow(marker, contentString);
-	                    
-	            // Load the selected markers            
-	            loadMarkers();       
-	        }      
-	    
+	              center: vancouverLatLng,
+	              zoom: 10
+	            };	  
+	            map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);	
+	            centerMapOnUser(map);
+	        }
 	        google.maps.event.addDomListener(window, 'load', initialize);
 	    </script>
-	    
-    	
-		
-	</head>
-	
+<!-- ============================================================================================================================= -->
+	</head>	
+<!-- ============================================================================================================================= -->
 <!-- ============================================================================================================================= -->
     <body>
         <div class="container">
@@ -167,6 +126,10 @@
             <!-- End of Main Page -->
 <!-- ============================================================================================================================= -->
         </div>
+        
+        <script>
+        getLocation();
+        </script>
 
 	<!-- Bootstrap core JavaScript -->
 	<script src="./js/jquery-1.11.0.js"></script>
@@ -174,5 +137,5 @@
 
 </body>
 <!-- ============================================================================================================================= -->
-	
+<!-- ============================================================================================================================= -->
 </html>
