@@ -76,19 +76,10 @@
 									</ul>
 									<form class="navbar-form navbar-left" role="search">
 										<div class="form-group">
-										<input type="text" class="form-control" placeholder="Type in address to book a spot">
+											<input type="text"  style="width:280px" class="form-control" placeholder="Type an address to book or host a spot">
 										</div>
 										<button type="submit" class="btn btn-default">Search</button>
-									</form>
-									<ul class="nav navbar-nav">
-										<li class="dropdown">
-											<a href="#" class="dropdown-toggle" data-toggle="dropdown">Are You A Host ? <b class="caret"></b></a>
-											<ul class="dropdown-menu">
-												<li><a href="#">Host A New Spot</a></li>
-												<li><a href="#">Manage Hosted Spots</a></li>
-											</ul>                  			                  	
-										</li>     		                
-									</ul>
+									</form>									
                                     <ul class="nav navbar-nav navbar-right">
 									<% 
 										UserService userService = UserServiceFactory.getUserService();
