@@ -61,12 +61,22 @@ function handleNoGeolocationSupport()
 //====================================================================================================================
  
 function addUserMarker(userLocation, currentMap) {
-	var userIcon = 'https://maps.gstatic.com/mapfiles/ms2/micons/red-dot.png'
+	var userIcon = 'https://maps.gstatic.com/mapfiles/ms2/micons/ltblue-dot.png'
 	var marker = new google.maps.Marker({position: userLocation,
 										 map: currentMap,
 										 icon: userIcon,
 										 title: 'Your Position'});	
 	var contentString = '<p>This is your location</p>';
+	addInfowindow(marker, contentString);
+}
+
+function addAddressMarker(location, currentMap) {
+	var addressIcon = 'https://maps.gstatic.com/mapfiles/ms2/micons/red-pushpin.png'
+	var marker = new google.maps.Marker({position: location,
+										 map: currentMap,
+										 icon: addressIcon,
+										 title: 'Your Position'});	
+	var contentString = '<p>This is the address location</p>';
 	addInfowindow(marker, contentString);
 }
 

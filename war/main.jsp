@@ -74,7 +74,7 @@
 										<li><a href="#">About</a></li>
 										<li><a href="#">Manage Bookings</a></li>	                
 									</ul>
-									<form class="navbar-form navbar-left" role="search">
+									<form class="navbar-form navbar-left" onsubmit="alert('Implement search')" role="search">
 										<div class="form-group">
 											<input type="text"  style="width:280px" class="form-control" placeholder="Type an address to book or host a spot">
 										</div>
