@@ -19,22 +19,20 @@
 <html>
 
 	<head>
-    	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	    <meta charset="utf-8">
+
 	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 	    <meta name="viewport" content="width=device-width, initial-scale=1">
 	    <meta name="description" content="">
 	    <meta name="author" content="">
 	    
 	    <title>OurParkingSpot</title>
+	    
 	    <link rel="shortcut icon" href="http://getbootstrap.com/assets/ico/favicon.ico">
 	    <link type="text/css" href="./css/myCss.css" rel="stylesheet">
-        <!-- Bootstrap core CSS -->
         <link type="text/css" href="./css/bootstrap.css" rel="stylesheet">
+        
 	    <script type="text/javascript" src="/js/myJs.js"></script>        
-	    <script type="text/javascript"
-	      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDh0t8xGJIIHStBk-MN3wYzC-nn8SJ09U4&sensor=true">
-	    </script>    
+	    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDh0t8xGJIIHStBk-MN3wYzC-nn8SJ09U4&sensor=true"> </script> 
 	    <script type="text/javascript"> 
 	      
 	        function initialize() {
@@ -93,9 +91,10 @@
 		
 	</head>
 	
+<!-- ============================================================================================================================= -->
     <body>
         <div class="container">
-        
+<!-- ============================================================================================================================= -->
             <!--  Navbar  -->
                 <div class="navbar-wrapper navbar-fixed-top" style="margin-top:10px">
                     <div class="container">
@@ -157,7 +156,7 @@
                     </div>
                 </div>
             <!-- End of Navbar -->
-            
+<!-- ============================================================================================================================= -->
             <!-- Main Page -->                
                 <div class="jumbotron mainPage">
                     <div id="map-canvas" class="mapCanvas"></div>
@@ -166,15 +165,14 @@
                     adjustMapHeight();
                 </script>
             <!-- End of Main Page -->
-            
+<!-- ============================================================================================================================= -->
         </div>
-
-
 
 	<!-- Bootstrap core JavaScript -->
 	<script src="./js/jquery-1.11.0.js"></script>
 	<script src="./js/bootstrap.min.js"></script>
-	
+
 </body>
+<!-- ============================================================================================================================= -->
 	
 </html>
