@@ -100,9 +100,11 @@
 											<input type="text"  name="longitude" style="width:130px" class="form-control" 
                                                 placeholder="longitude" value="<%=searchedLongitude == null ? defaultLongitude : searchedLongitude%>">
 										</div>
-										<button type="submit" class="btn btn-default">Search</button>
-										<button type="submit" class="btn btn-default">Locate Me</button>
-									</form>									
+										<button type="submit" class="btn btn-default">Search</button>										
+									</form>					
+									<div class="navbar-form navbar-left" action="/search" role="search">				
+									    <button type="button" class="btn btn-default" onclick="centerMapOnUser(map);">Locate Me</button>
+									</div>
                                     <ul class="nav navbar-nav navbar-right">
 									<% 
 										UserService userService = UserServiceFactory.getUserService();
