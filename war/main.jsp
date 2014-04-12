@@ -43,7 +43,16 @@
 	              zoom: 10
 	            };	  
 	            map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);	
-	            centerMapOnUser(map);
+	            
+	            var latitude = getParameterByName('lat');
+	            var longitude = getParameterByName('lon');
+	            if (latitude && longitude) {
+	               addUserMarkerOnMap(map);
+	               centerMapOnSearch(map, latitude, longitude);
+	            }
+	            else {
+	               centerMapOnUser(map);
+	            }	            
 	        }
 	        google.maps.event.addDomListener(window, 'load', initialize);
 	    </script>
@@ -74,11 +83,25 @@
 										<li><a href="#">About</a></li>
 										<li><a href="#">Manage Bookings</a></li>	                
 									</ul>
-									<form class="navbar-form navbar-left" onsubmit="alert('Implement search')" role="search">
+									<%
+									    String searchedLatitude = request.getParameter("lat");
+									    String searchedLongitude = request.getParameter("lon");
+									    String searchedLatitudeString = searchedLatitude == null ? "Latitude" : searchedLatitude + " (Lat)";
+									    String searchedLongitudeString = searchedLongitude == null ? "Longitude" : searchedLongitude + " (Lon)";
+									    String defaultLatitude = "";
+									    String defaultLongitude = "";
+									    pageContext.setAttribute("searchedLatitude", searchedLatitude);
+									    pageContext.setAttribute("searchedLongitude", searchedLongitude);
+									%>
+									<form class="navbar-form navbar-left" action="/search" role="search">
 										<div class="form-group">
-											<input type="text"  style="width:280px" class="form-control" placeholder="Type an address to book or host a spot">
+											<input type="text"  name="latitude" style="width:130px" class="form-control"
+                                                placeholder="latitude" value="<%=searchedLatitude == null ? defaultLatitude : searchedLatitude%>">
+											<input type="text"  name="longitude" style="width:130px" class="form-control" 
+                                                placeholder="longitude" value="<%=searchedLongitude == null ? defaultLongitude : searchedLongitude%>">
 										</div>
 										<button type="submit" class="btn btn-default">Search</button>
+										<button type="submit" class="btn btn-default">Locate Me</button>
 									</form>									
                                     <ul class="nav navbar-nav navbar-right">
 									<% 

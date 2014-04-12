@@ -9,6 +9,11 @@ function adjustMapHeight() {
 	document.getElementById("map-canvas").style.height= screen.height - 300 + "px";
 }
 
+function getParameterByName(name) {
+    var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
+    return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+}
+
 //====================================================================================================================
 
 function centerMapOnUser(currentMap)
@@ -22,6 +27,37 @@ function centerMapOnUser(currentMap)
 	        centerMapOn(geolocation, currentMap);
 	        addUserMarker(geolocation, currentMap);
 		},showError,{timeout:5000, enableHighAccuracy: true});
+	}
+	else
+	{
+	  	handleNoGeolocationSupport();
+	}
+}
+
+function addUserMarkerOnMap(currentMap)
+{		
+	if (navigator.geolocation)
+	{
+		navigator.geolocation.getCurrentPosition(function(position){
+			var latitude = position.coords.latitude;
+	        var longitude = position.coords.longitude;
+	        var geolocation = new google.maps.LatLng(latitude, longitude);
+	        addUserMarker(geolocation, currentMap);
+		},showError,{timeout:5000, enableHighAccuracy: true});
+	}
+	else
+	{
+	  	handleNoGeolocationSupport();
+	}
+}
+
+function centerMapOnSearch(currentMap, latitude, longitude)
+{		
+	if (navigator.geolocation)
+	{
+		var geolocation = new google.maps.LatLng(latitude, longitude);
+		centerMapOn(geolocation, currentMap);
+		addSearchedMarker(geolocation, currentMap);
 	}
 	else
 	{
@@ -61,12 +97,22 @@ function handleNoGeolocationSupport()
 //====================================================================================================================
  
 function addUserMarker(userLocation, currentMap) {
-	var userIcon = 'https://maps.gstatic.com/mapfiles/ms2/micons/ltblue-dot.png'
+	var userIcon = '/resources/user.png'
 	var marker = new google.maps.Marker({position: userLocation,
 										 map: currentMap,
 										 icon: userIcon,
 										 title: 'Your Position'});	
 	var contentString = '<p>This is your location</p>';
+	addInfowindow(marker, contentString);
+}
+
+function addSearchedMarker(userLocation, currentMap) {
+	var userIcon = '/resources/search.png'
+	var marker = new google.maps.Marker({position: userLocation,
+										 map: currentMap,
+										 icon: userIcon,
+										 title: 'Your Position'});	
+	var contentString = '<p>This is the searched location</p>';
 	addInfowindow(marker, contentString);
 }
 
