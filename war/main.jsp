@@ -100,10 +100,10 @@
 											<input type="text"  name="longitude" style="width:130px" class="form-control" 
                                                 placeholder="longitude" value="<%=searchedLongitude == null ? defaultLongitude : searchedLongitude%>">
 										</div>
-										<button type="submit" class="btn btn-default">Search</button>										
+										<button type="submit" class="btn btn-default"><img src="/resources/search.png" alt="" style="height:20px;width:20px;"> Search</button>										
 									</form>					
 									<div class="navbar-form navbar-left" action="/search" role="search">				
-									    <button type="button" class="btn btn-default" onclick="centerMapOnUser(map);">Locate Me</button>
+									    <button type="button" class="btn btn-default" onclick="centerMapOnUser(map);"><img src="/resources/user.png" alt="" style="height:20px;width:20px;"> Locate Me</button>
 									</div>
                                     <ul class="nav navbar-nav navbar-right">
 									<% 
