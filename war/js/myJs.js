@@ -114,21 +114,30 @@ function addSearchedMarker(searchLocation, currentMap) {
 										 title: 'Your Position'});	
 	var lat = searchLocation.lat();
 	var lon = searchLocation.lng();
-	var contentString = '<div class="HostMarkerInfo">' +
-							'<form action="/hosting">' +
-								'<div style="margin-bottom:5px">' +
-									'Title<br>' + 
-									'<input type="text" name="hostTitle" style="width:100%"><br>' +
-									'Description<br>' + 
-									'<textarea autofocus class="form-control" name="hostMsg" rows="3" cols="30"></textarea>' +
-								'</div>' +
-								'<div>' +
-									'<input type="submit" class="btn btn-success" value="Host This Location">' +
-									'<input type="hidden" id="hostLatitude" value="' + lat + '" name="latitude">' +
-							        '<input type="hidden" id="hostLongitude" value="' + lon + '" name="longitude">' +
-							    '</div>' +
-							'</form>' +
+	var contentString = "";
+	
+	if (isLoggedIn) 
+	{
+		contentString = '<div class="HostMarkerInfo">' +
+								'<form action="/hosting">' +
+									'<div style="margin-bottom:10px">' +
+										'Title<br>' + 
+										'<input class="form-control" type="text" name="hostTitle" style="width:100%"><br>' +
+										'Description<br>' + 
+										'<textarea class="form-control" name="hostMsg" rows="3" cols="30"></textarea>' +
+									'</div>' +
+									'<div>' +
+										'<input type="submit" class="btn btn-success" value="Host This Location">' +
+										'<input type="hidden" id="hostLatitude" value="' + lat + '" name="latitude">' +
+								        '<input type="hidden" id="hostLongitude" value="' + lon + '" name="longitude">' +
+							        '</div>' +
+								'</form>' +
+							'</div>';
+	} else {
+		contentString = '<div class="HostMarkerInfo">' +
+							'<p>Please Log In</p>' +
 						'</div>';
+	}
 	addInfowindow(marker, contentString);
 }
 

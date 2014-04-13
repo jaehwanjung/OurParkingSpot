@@ -112,12 +112,18 @@
 										if (user != null) {
 										pageContext.setAttribute("user", user);	
 									%>
+									   <script>
+									       isLoggedIn = true;
+									   </script>
 										<li><a href="<%= userService.createLogoutURL(request.getRequestURI())%>">
 										<span class="glyphicon glyphicon-log-out"></span> ${fn:escapeXml(user.nickname)}</a>
 										</li>    
 									<%
 									   } else {
 									%>   
+									   <script>
+                                           isLoggedIn = false;
+                                       </script>
 										<li><a href="<%= userService.createLoginURL(request.getRequestURI())%>">
 										<span class="glyphicon glyphicon-log-in"></span> LOGIN</a>
 										</li>   
@@ -144,7 +150,7 @@
         </div>
         
         <script>
-        getLocation();
+            getLocation();
         </script>
 
 	<!-- Bootstrap core JavaScript -->
