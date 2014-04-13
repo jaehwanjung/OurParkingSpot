@@ -4,6 +4,14 @@ xmlns="http://java.sun.com/xml/ns/javaee"
 xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
 http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
+<servlet>
+        <servlet-name>hosting</servlet-name>
+        <servlet-class>com.ourparkingspot.main.HostingServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>hosting</servlet-name>
+        <url-pattern>/hosting</url-pattern>
+    </servlet-mapping>
 	<servlet>
 		<servlet-name>booking</servlet-name>
 		<servlet-class>com.ourparkingspot.main.BookingServlet</servlet-class>

@@ -106,24 +106,29 @@ function addUserMarker(userLocation, currentMap) {
 	addInfowindow(marker, contentString);
 }
 
-function addSearchedMarker(userLocation, currentMap) {
+function addSearchedMarker(searchLocation, currentMap) {
 	var userIcon = '/resources/search.png';
-	var marker = new google.maps.Marker({position: userLocation,
+	var marker = new google.maps.Marker({position: searchLocation,
 										 map: currentMap,
 										 icon: userIcon,
 										 title: 'Your Position'});	
-	var lat = userLocation.lat();
-	var lon = userLocation.lng();
-	var contentString = '<form action="/search">' +
-							'<div style="margin-bottom:5px">' +
-								'<textarea autofocus class="form-control" name="hostMsg" rows="5" cols="30"></textarea>' +
-							'</div>' +
-							'<div>' +
-								'<input type="submit" class="btn btn-success" value="Host This Location">' +
-								'<input type="hidden" id="hostLatitude" value="'+lat +'" name="latitude">' +
-						        '<input type="hidden" id="hostLongitude" value="'+lon+'" name="longitude">' +
-						    '</div>' +
-						'</form>';
+	var lat = searchLocation.lat();
+	var lon = searchLocation.lng();
+	var contentString = '<div class="HostMarkerInfo">' +
+							'<form action="/hosting">' +
+								'<div style="margin-bottom:5px">' +
+									'Title<br>' + 
+									'<input type="text" name="hostTitle" style="width:100%"><br>' +
+									'Description<br>' + 
+									'<textarea autofocus class="form-control" name="hostMsg" rows="3" cols="30"></textarea>' +
+								'</div>' +
+								'<div>' +
+									'<input type="submit" class="btn btn-success" value="Host This Location">' +
+									'<input type="hidden" id="hostLatitude" value="' + lat + '" name="latitude">' +
+							        '<input type="hidden" id="hostLongitude" value="' + lon + '" name="longitude">' +
+							    '</div>' +
+							'</form>' +
+						'</div>';
 	addInfowindow(marker, contentString);
 }
 

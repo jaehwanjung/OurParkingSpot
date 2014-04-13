@@ -95,9 +95,9 @@
 									%>
 									<form class="navbar-form navbar-left" action="/search" role="search">
 										<div class="form-group">
-											<input type="text"  name="latitude" style="width:130px" class="form-control"
+											<input type="text"  name="latitude" style="width:100px" class="form-control"
                                                 placeholder="latitude" value="<%=searchedLatitude == null ? defaultLatitude : searchedLatitude%>">
-											<input type="text"  name="longitude" style="width:130px" class="form-control" 
+											<input type="text"  name="longitude" style="width:100px" class="form-control" 
                                                 placeholder="longitude" value="<%=searchedLongitude == null ? defaultLongitude : searchedLongitude%>">
 										</div>
 										<button type="submit" class="btn btn-default"><img src="/resources/search.png" alt="" style="height:20px;width:20px;"> Search</button>										
@@ -113,7 +113,7 @@
 										pageContext.setAttribute("user", user);	
 									%>
 										<li><a href="<%= userService.createLogoutURL(request.getRequestURI())%>">
-										<span class="glyphicon glyphicon-log-out"></span> Logged as ${fn:escapeXml(user.nickname)}</a>
+										<span class="glyphicon glyphicon-log-out"></span> ${fn:escapeXml(user.nickname)}</a>
 										</li>    
 									<%
 									   } else {
