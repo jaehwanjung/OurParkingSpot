@@ -112,8 +112,8 @@ function addSearchedMarker(userLocation, currentMap) {
 										 map: currentMap,
 										 icon: userIcon,
 										 title: 'Your Position'});	
-	var lat = "49.12";
-	var lon = "-123.12";
+	var lat = userLocation.lat();
+	var lon = userLocation.lng();
 	var contentString = '<form action="/search">' +
 							'<div style="margin-bottom:5px">' +
 								'<textarea autofocus class="form-control" name="hostMsg" rows="5" cols="30"></textarea>' +
