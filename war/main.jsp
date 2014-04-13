@@ -43,12 +43,12 @@
 	              zoom: 10
 	            };	  
 	            map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);	
-	            
+	            var isCreated = getParameterByName('created');
 	            var latitude = getParameterByName('lat');
 	            var longitude = getParameterByName('lon');
-	            if (latitude && longitude) {
-	               addUserMarkerOnMap(map);
-	               centerMapOnSearch(map, latitude, longitude);
+	            addUserMarkerOnMap(map);
+	            if (latitude && longitude) {	               
+	               centerMapOnSearch(map, latitude, longitude, isCreated);
 	            }
 	            else {
 	               centerMapOnUser(map);

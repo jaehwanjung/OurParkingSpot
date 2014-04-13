@@ -51,13 +51,16 @@ function addUserMarkerOnMap(currentMap)
 	}
 }
 
-function centerMapOnSearch(currentMap, latitude, longitude)
+function centerMapOnSearch(currentMap, latitude, longitude, isCreated)
 {		
 	if (navigator.geolocation)
 	{
 		var geolocation = new google.maps.LatLng(latitude, longitude);
-		centerMapOn(geolocation, currentMap);
-		addSearchedMarker(geolocation, currentMap);
+		if (!isCreated)
+		{
+			addSearchedMarker(geolocation, currentMap);			
+		}
+		centerMapOn(geolocation, currentMap);		
 	}
 	else
 	{

@@ -42,7 +42,7 @@ public class HostingServlet extends HttpServlet {
 
 			DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 			datastore.put(spot);
-			resp.sendRedirect(String.format("/main.jsp?lat=%s&lon=%s", latitude, longitude));
+			resp.sendRedirect(String.format("/main.jsp?lat=%s&lon=%s&created=%s", latitude, longitude, "true"));
 		} else {
 			resp.sendRedirect(String.format("/main.jsp?error=%s", "No User"));
 		}
