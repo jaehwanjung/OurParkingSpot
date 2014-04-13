@@ -107,12 +107,23 @@ function addUserMarker(userLocation, currentMap) {
 }
 
 function addSearchedMarker(userLocation, currentMap) {
-	var userIcon = '/resources/search.png'
+	var userIcon = '/resources/search.png';
 	var marker = new google.maps.Marker({position: userLocation,
 										 map: currentMap,
 										 icon: userIcon,
 										 title: 'Your Position'});	
-	var contentString = '<p>This is the searched location</p>';
+	var lat = "49.12";
+	var lon = "-123.12";
+	var contentString = '<form action="/search">' +
+							'<div style="margin-bottom:5px">' +
+								'<textarea autofocus class="form-control" name="hostMsg" rows="5" cols="30"></textarea>' +
+							'</div>' +
+							'<div>' +
+								'<input type="submit" class="btn btn-success" value="Host This Location">' +
+								'<input type="hidden" id="hostLatitude" value="'+lat +'" name="latitude">' +
+						        '<input type="hidden" id="hostLongitude" value="'+lon+'" name="longitude">' +
+						    '</div>' +
+						'</form>';
 	addInfowindow(marker, contentString);
 }
 
