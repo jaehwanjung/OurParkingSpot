@@ -122,7 +122,9 @@ function addSearchedMarker(searchLocation, currentMap) {
 								'<form action="/hosting">' +
 									'<div style="margin-bottom:10px">' +
 										'Title<br>' + 
-										'<input class="form-control" type="text" name="hostTitle" style="width:100%"><br>' +
+										'<input class="form-control" type="text" name="hostTitle"><br>' +
+										'Rate ($/Hour)<br>' + 
+										'<input class="form-control" type="number" name="rate"><br>' +
 										'Description<br>' + 
 										'<textarea class="form-control" name="hostMsg" rows="3" cols="30"></textarea>' +
 									'</div>' +

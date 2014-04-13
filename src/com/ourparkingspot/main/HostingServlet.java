@@ -24,6 +24,7 @@ public class HostingServlet extends HttpServlet {
 
 		if (user != null) {
 			String title = req.getParameter("hostTitle");
+			String rate = req.getParameter("rate");
 			String msg = req.getParameter("hostMsg");
 			String latitude = req.getParameter("latitude");
 			String longitude = req.getParameter("longitude");
@@ -33,6 +34,7 @@ public class HostingServlet extends HttpServlet {
 			Entity spot = new Entity("Greeting", hostKey);
 			spot.setProperty("user", user);
 			spot.setProperty("title", title);
+			spot.setProperty("rate", rate);
 			spot.setProperty("date", new Date());
 			spot.setProperty("msg", msg);
 			spot.setProperty("latitude", latitude);
