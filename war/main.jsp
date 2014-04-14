@@ -46,12 +46,12 @@
 	            var isCreated = getParameterByName('created');
 	            var latitude = getParameterByName('lat');
 	            var longitude = getParameterByName('lon');
-	            addUserMarkerOnMap(map);
+	            addUserMarkerOnMap(map, isLoggedIn);
 	            if (latitude && longitude) {	               
-	               centerMapOnSearch(map, latitude, longitude, isCreated);
+	               centerMapOnSearch(map, latitude, longitude, isCreated, isLoggedIn);
 	            }
 	            else {
-	               centerMapOnUser(map);
+	               centerMapOnUser(map, isLoggedIn);
 	            }	            
 	        }
 	        google.maps.event.addDomListener(window, 'load', initialize);

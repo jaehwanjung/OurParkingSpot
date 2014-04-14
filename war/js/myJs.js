@@ -16,7 +16,7 @@ function getParameterByName(name) {
 
 //====================================================================================================================
 
-function centerMapOnUser(currentMap)
+function centerMapOnUser(currentMap, isLoggedIn)
 {		
 	if (navigator.geolocation)
 	{
@@ -25,7 +25,7 @@ function centerMapOnUser(currentMap)
 	        var longitude = position.coords.longitude;
 	        var geolocation = new google.maps.LatLng(latitude, longitude);
 	        centerMapOn(geolocation, currentMap);
-	        addUserMarker(geolocation, currentMap);
+	        addUserMarker(geolocation, currentMap, isLoggedIn);
 		},showError,{timeout:5000, enableHighAccuracy: true});
 	}
 	else
@@ -34,7 +34,7 @@ function centerMapOnUser(currentMap)
 	}
 }
 
-function addUserMarkerOnMap(currentMap)
+function addUserMarkerOnMap(currentMap, isLoggedIn)
 {		
 	if (navigator.geolocation)
 	{
@@ -42,7 +42,7 @@ function addUserMarkerOnMap(currentMap)
 			var latitude = position.coords.latitude;
 	        var longitude = position.coords.longitude;
 	        var geolocation = new google.maps.LatLng(latitude, longitude);
-	        addUserMarker(geolocation, currentMap);
+	        addUserMarker(geolocation, currentMap, isLoggedIn);
 		},showError,{timeout:5000, enableHighAccuracy: true});
 	}
 	else
@@ -51,14 +51,14 @@ function addUserMarkerOnMap(currentMap)
 	}
 }
 
-function centerMapOnSearch(currentMap, latitude, longitude, isCreated)
+function centerMapOnSearch(currentMap, latitude, longitude, isCreated, isLoggedIn)
 {		
 	if (navigator.geolocation)
 	{
 		var geolocation = new google.maps.LatLng(latitude, longitude);
 		if (!isCreated)
 		{
-			addSearchedMarker(geolocation, currentMap);			
+			addSearchedMarker(geolocation, currentMap, isLoggedIn);			
 		}
 		centerMapOn(geolocation, currentMap);		
 	}
@@ -99,26 +99,15 @@ function handleNoGeolocationSupport()
 
 //====================================================================================================================
  
-function addUserMarker(userLocation, currentMap) {
+function addUserMarker(userLocation, currentMap, isLoggedIn) {
 	var userIcon = '/resources/user.png'
 	var marker = new google.maps.Marker({position: userLocation,
 										 map: currentMap,
 										 icon: userIcon,
 										 title: 'Your Position'});	
-	var contentString = '<p>This is your location</p>';
-	addInfowindow(marker, contentString);
-}
-
-function addSearchedMarker(searchLocation, currentMap) {
-	var userIcon = '/resources/search.png';
-	var marker = new google.maps.Marker({position: searchLocation,
-										 map: currentMap,
-										 icon: userIcon,
-										 title: 'Your Position'});	
-	var lat = searchLocation.lat();
-	var lon = searchLocation.lng();
-	var contentString = "";
-	
+	var lat = userLocation.lat();
+	var lon = userLocation.lng();
+	var contentString = "";	
 	if (isLoggedIn) 
 	{
 		contentString = '<div class="HostMarkerInfo">' +
@@ -140,7 +129,45 @@ function addSearchedMarker(searchLocation, currentMap) {
 							'</div>';
 	} else {
 		contentString = '<div class="HostMarkerInfo">' +
-							'<p>Please Log In</p>' +
+							'<p>This is where you are.</p>' +
+							'<p>Please log in to host this spot.</p>' +
+						'</div>';
+	}
+	addInfowindow(marker, contentString);
+}
+
+function addSearchedMarker(searchLocation, currentMap, isLoggedIn) {
+	var userIcon = '/resources/search.png';
+	var marker = new google.maps.Marker({position: searchLocation,
+										 map: currentMap,
+										 icon: userIcon,
+										 title: 'Your Position'});	
+	var lat = searchLocation.lat();
+	var lon = searchLocation.lng();
+	var contentString = "";	
+	if (isLoggedIn) 
+	{
+		contentString = '<div class="HostMarkerInfo">' +
+								'<form action="/hosting">' +
+									'<div style="margin-bottom:10px">' +
+										'Title<br>' + 
+										'<input class="form-control" type="text" name="hostTitle"><br>' +
+										'Rate ($/Hour)<br>' + 
+										'<input class="form-control" type="number" name="rate"><br>' +
+										'Description<br>' + 
+										'<textarea class="form-control" name="hostMsg" rows="3" cols="30"></textarea>' +
+									'</div>' +
+									'<div>' +
+										'<input type="submit" class="btn btn-success" value="Host This Location">' +
+										'<input type="hidden" id="hostLatitude" value="' + lat + '" name="latitude">' +
+								        '<input type="hidden" id="hostLongitude" value="' + lon + '" name="longitude">' +
+							        '</div>' +
+								'</form>' +
+							'</div>';
+	} else {
+		contentString = '<div class="HostMarkerInfo">' +
+							'<p>This is where you searched.</p>' +
+							'<p>Please log in to host this spot.</p>' +
 						'</div>';
 	}
 	addInfowindow(marker, contentString);
