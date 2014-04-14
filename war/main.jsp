@@ -47,13 +47,14 @@
 	            var latitude = getParameterByName('lat');
 	            var longitude = getParameterByName('lon');	            
 	            if (latitude && longitude) {	  
-	               addUserMarkerOnMap(map, isLoggedIn);             
-	               centerMapOnSearch(map, latitude, longitude, isCreated, isLoggedIn);
+	               addUserMarkerOnMap();             
+	               centerMapOnSearch(latitude, longitude, isCreated);
 	            }
 	            else {
-	               centerMapOnUser(map, isLoggedIn);
+	               centerMapOnUser();
 	            }	            
 	        }
+	        
 	        google.maps.event.addDomListener(window, 'load', initialize);
 	    </script>
 <!-- ============================================================================================================================= -->
@@ -103,7 +104,7 @@
 										<button type="submit" class="btn btn-default"><img src="/resources/search.png" alt="" style="height:20px;width:20px;"> Search</button>										
 									</form>					
 									<div class="navbar-form navbar-left" action="/search" role="search">				
-									    <button type="button" class="btn btn-default" onclick="centerMapOnUser(map);"><img src="/resources/user.png" alt="" style="height:20px;width:20px;"> Locate Me</button>
+									    <button type="button" class="btn btn-default" onclick="centerMapOnUser();"><img src="/resources/user.png" alt="" style="height:20px;width:20px;"> Locate Me</button>
 									</div>
                                     <ul class="nav navbar-nav navbar-right">
 									<% 
@@ -150,7 +151,7 @@
         </div>
         
         <script>
-            getLocation();
+            loadMarkers();
         </script>
 
 	<!-- Bootstrap core JavaScript -->

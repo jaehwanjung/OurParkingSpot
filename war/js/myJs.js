@@ -1,3 +1,5 @@
+var isLoggedIn;
+var map;
 //====================================================================================================================
 
 function adjustMapHeight() {
@@ -11,7 +13,7 @@ function getParameterByName(name) {
 
 //====================================================================================================================
 
-function centerMapOnUser(currentMap, isLoggedIn)
+function centerMapOnUser()
 {		
 	if (navigator.geolocation)
 	{
@@ -19,8 +21,8 @@ function centerMapOnUser(currentMap, isLoggedIn)
 			var latitude = position.coords.latitude;
 	        var longitude = position.coords.longitude;
 	        var geolocation = new google.maps.LatLng(latitude, longitude);
-	        centerMapOn(geolocation, currentMap);
-	        addUserMarker(geolocation, currentMap, isLoggedIn);
+	        addUserMarker(geolocation, map, isLoggedIn);
+	        centerMapOn(geolocation, map);	        
 		},showError,{timeout:5000, enableHighAccuracy: true});
 	}
 	else
@@ -29,7 +31,7 @@ function centerMapOnUser(currentMap, isLoggedIn)
 	}
 }
 
-function addUserMarkerOnMap(currentMap, isLoggedIn)
+function addUserMarkerOnMap()
 {		
 	if (navigator.geolocation)
 	{
@@ -37,7 +39,7 @@ function addUserMarkerOnMap(currentMap, isLoggedIn)
 			var latitude = position.coords.latitude;
 	        var longitude = position.coords.longitude;
 	        var geolocation = new google.maps.LatLng(latitude, longitude);
-	        addUserMarker(geolocation, currentMap, isLoggedIn);
+	        addUserMarker(geolocation, map, isLoggedIn);
 		},showError,{timeout:5000, enableHighAccuracy: true});
 	}
 	else
@@ -46,16 +48,16 @@ function addUserMarkerOnMap(currentMap, isLoggedIn)
 	}
 }
 
-function centerMapOnSearch(currentMap, latitude, longitude, isCreated, isLoggedIn)
+function centerMapOnSearch(latitude, longitude, isCreated)
 {		
 	if (navigator.geolocation)
 	{
 		var geolocation = new google.maps.LatLng(latitude, longitude);
 		if (!isCreated)
 		{
-			addSearchedMarker(geolocation, currentMap, isLoggedIn);			
+			addSearchedMarker(geolocation, map, isLoggedIn);			
 		}
-		centerMapOn(geolocation, currentMap);		
+		centerMapOn(geolocation, map);		
 	}
 	else
 	{
@@ -63,9 +65,9 @@ function centerMapOnSearch(currentMap, latitude, longitude, isCreated, isLoggedI
 	}
 }
 
-function centerMapOn(location, currentMap) 
+function centerMapOn(location) 
 {
-	currentMap.setCenter(location);
+	map.setCenter(location);
 }
 
 function showError(error)
@@ -94,10 +96,10 @@ function handleNoGeolocationSupport()
 
 //====================================================================================================================
  
-function addUserMarker(userLocation, currentMap, isLoggedIn) {
+function addUserMarker(userLocation) {
 	var userIcon = '/resources/user.png'
 	var marker = new google.maps.Marker({position: userLocation,
-										 map: currentMap,
+										 map: map,
 										 icon: userIcon,
 										 title: 'Your Position'});	
 	var lat = userLocation.lat();
@@ -131,12 +133,12 @@ function addUserMarker(userLocation, currentMap, isLoggedIn) {
 	addInfowindow(marker, contentString);
 }
 
-function addSearchedMarker(searchLocation, currentMap, isLoggedIn) {
+function addSearchedMarker(searchLocation) {
 	var userIcon = '/resources/search.png';
 	var marker = new google.maps.Marker({position: searchLocation,
-										 map: currentMap,
+										 map: map,
 										 icon: userIcon,
-										 title: 'Your Position'});	
+										 title: 'Searched Position'});	
 	var lat = searchLocation.lat();
 	var lon = searchLocation.lng();
 	var contentString = "";	
@@ -168,16 +170,6 @@ function addSearchedMarker(searchLocation, currentMap, isLoggedIn) {
 	addInfowindow(marker, contentString);
 }
 
-function addAddressMarker(location, currentMap) {
-	var addressIcon = 'https://maps.gstatic.com/mapfiles/ms2/micons/red-pushpin.png'
-	var marker = new google.maps.Marker({position: location,
-										 map: currentMap,
-										 icon: addressIcon,
-										 title: 'Your Position'});	
-	var contentString = '<p>This is the address location</p>';
-	addInfowindow(marker, contentString);
-}
-
 function addInfowindow(marker, content) {
 	var infowindow = new google.maps.InfoWindow({
 			content: content
@@ -192,3 +184,85 @@ function addInfowindow(marker, content) {
 
 //====================================================================================================================
 
+function loadMarkers() {
+	try {
+		xmlHttpReq = new XMLHttpRequest();
+		xmlHttpReq.onreadystatechange = httpCallBackFunction_loadMarkers;
+		xmlHttpReq.open('GET', "/markerQuery", true);
+    	xmlHttpReq.send(null);
+	} catch (e) {
+    	alert("Error: " + e);
+	}		
+}
+
+function httpCallBackFunction_loadMarkers() {
+	if (xmlHttpReq.readyState == 4){
+		
+		var xmlDoc = null;
+
+		if(xmlHttpReq.responseXML){
+			xmlDoc = xmlHttpReq.responseXML;
+		}else if(xmlHttpReq.responseText){
+			var parser = new DOMParser();
+		 	xmlDoc = parser.parseFromString(xmlHttpReq.responseText,"text/xml");			 	
+		}
+
+		if(xmlDoc){										
+			var markerElements = xmlDoc.getElementsByTagName('marker');
+			var contentString = "";
+			for(mE = 0; mE < markerElements.length; mE++) {
+				var markerElement = markerElements[mE];
+				var hostUser = markerElement.getAttribute("hostUser");
+				var title = markerElement.getAttribute("title");
+				var rate = markerElement.getAttribute("rate");
+				var hostedDate = markerElement.getAttribute("hostedDate");
+				var msg = markerElement.getAttribute("msg");
+				var latitude = markerElement.getAttribute("latitude");
+				var longitude = markerElement.getAttribute("longitude");
+				var bookedDate = markerElement.getAttribute("bookedDate");
+				var bookedBy = markerElement.getAttribute("bookedBy");
+				var bookedFrom = markerElement.getAttribute("bookedFrom");
+				var bookedTo = markerElement.getAttribute("bookedTo");
+				
+				if (isLoggedIn) 
+				{
+					contentString = '<div class="HostMarkerInfo">' +
+										'<p>Hosted by : ' + hostUser + '</p><br>' +
+										'<p>Title : ' + title + '</p><br>' +
+										'<p>Rate : ' + rate + '</p><br>' +
+										'<p>Hosted on : ' + hostedDate + '</p><br>' +
+										'<p>Description : ' + msg + '</p><br>' +
+										'<p>Latitude : ' + latitude + '</p><br>' +
+										'<p>Longitude : ' + longitude + '</p><br>' +
+										'<p>Booked on : ' + bookedDate + '</p><br>' +
+										'<p>Booked by : ' + bookedBy + '</p><br>' +
+										'<p>Booked from : ' + bookedFrom + '</p><br>' +
+										'<p>Booked to : ' + bookedTo + '</p><br>'
+									'</div>';
+				} else {
+					contentString = '<div class="HostMarkerInfo">' +
+										'<p>Please log in to book this spot.</p>' +
+									'</div>';
+				}
+														
+				var spotIcon;
+				
+				if (bookedBy == "") {
+					spotIcon = '/resources/unbookedSpot.png';
+				} else {
+					spotIcon = '/resources/bookedSpot.png';
+				}
+				
+				var geolocation = new google.maps.LatLng(latitude, longitude);
+				var marker = new google.maps.Marker({position: geolocation,
+													 map: map,
+													 icon: spotIcon,
+													 title: title});	
+				
+				addInfowindow(marker, contentString);
+			}			
+		}else{
+			alert("No data.");
+		}	
+	}		
+}
