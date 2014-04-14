@@ -1,8 +1,3 @@
-var map;
-var xmlHttpReq = null;
-var selectedMarkerID;
-var guestbookNameString = "";
-
 //====================================================================================================================
 
 function adjustMapHeight() {
@@ -194,7 +189,6 @@ function addInfowindow(marker, content) {
 		infowindow.open(marker.get('map'), marker);		
 	});
 }
-
 
 //====================================================================================================================
 
