@@ -45,9 +45,9 @@
 	            map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);	
 	            var isCreated = getParameterByName('created');
 	            var latitude = getParameterByName('lat');
-	            var longitude = getParameterByName('lon');
-	            addUserMarkerOnMap(map, isLoggedIn);
-	            if (latitude && longitude) {	               
+	            var longitude = getParameterByName('lon');	            
+	            if (latitude && longitude) {	  
+	               addUserMarkerOnMap(map, isLoggedIn);             
 	               centerMapOnSearch(map, latitude, longitude, isCreated, isLoggedIn);
 	            }
 	            else {
