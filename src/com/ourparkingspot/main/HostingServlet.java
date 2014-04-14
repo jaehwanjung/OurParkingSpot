@@ -31,14 +31,18 @@ public class HostingServlet extends HttpServlet {
 
 			Key hostKey = KeyFactory.createKey("HostedSpots", user.getUserId());
 
-			Entity spot = new Entity("Greeting", hostKey);
+			Entity spot = new Entity("HostedSpots", hostKey);
 			spot.setProperty("user", user);
 			spot.setProperty("title", title);
 			spot.setProperty("rate", rate);
-			spot.setProperty("date", new Date());
+			spot.setProperty("hostedDate", new Date());
 			spot.setProperty("msg", msg);
 			spot.setProperty("latitude", latitude);
 			spot.setProperty("longitude", longitude);
+			spot.setProperty("bookedDate", "");
+			spot.setProperty("bookedBy", "");
+			spot.setProperty("bookedFrom", "");
+			spot.setProperty("bookedTo", "");
 
 			DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 			datastore.put(spot);
