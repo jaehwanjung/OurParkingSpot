@@ -29,8 +29,7 @@ public class HostingServlet extends HttpServlet {
 			String latitude = req.getParameter("latitude");
 			String longitude = req.getParameter("longitude");
 
-			Key hostKey = KeyFactory.createKey("HostedSpots", user.getUserId());
-
+			Key hostKey = KeyFactory.createKey("HostedSpots", user.getNickname());
 			Entity spot = new Entity("HostedSpots", hostKey);
 			spot.setProperty("user", user);
 			spot.setProperty("title", title);
@@ -39,10 +38,6 @@ public class HostingServlet extends HttpServlet {
 			spot.setProperty("msg", msg);
 			spot.setProperty("latitude", latitude);
 			spot.setProperty("longitude", longitude);
-			spot.setProperty("bookedDate", "");
-			spot.setProperty("bookedBy", "");
-			spot.setProperty("bookedFrom", "");
-			spot.setProperty("bookedTo", "");
 
 			DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 			datastore.put(spot);

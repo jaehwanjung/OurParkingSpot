@@ -212,6 +212,7 @@ function httpCallBackFunction_loadMarkers() {
 			var contentString = "";
 			for(mE = 0; mE < markerElements.length; mE++) {
 				var markerElement = markerElements[mE];
+				var id = markerElement.getAttribute("id");
 				var hostUser = markerElement.getAttribute("hostUser");
 				var title = markerElement.getAttribute("title");
 				var rate = markerElement.getAttribute("rate");
@@ -219,25 +220,31 @@ function httpCallBackFunction_loadMarkers() {
 				var msg = markerElement.getAttribute("msg");
 				var latitude = markerElement.getAttribute("latitude");
 				var longitude = markerElement.getAttribute("longitude");
-				var bookedDate = markerElement.getAttribute("bookedDate");
-				var bookedBy = markerElement.getAttribute("bookedBy");
-				var bookedFrom = markerElement.getAttribute("bookedFrom");
-				var bookedTo = markerElement.getAttribute("bookedTo");
 				
 				if (isLoggedIn) 
 				{
+					var date = new Date();
+					var dateStr = date.toLocaleString();
 					contentString = '<div class="HostMarkerInfo">' +
-										'<p>Hosted by : ' + hostUser + '</p><br>' +
-										'<p>Title : ' + title + '</p><br>' +
-										'<p>Rate : ' + rate + '</p><br>' +
-										'<p>Hosted on : ' + hostedDate + '</p><br>' +
-										'<p>Description : ' + msg + '</p><br>' +
-										'<p>Latitude : ' + latitude + '</p><br>' +
-										'<p>Longitude : ' + longitude + '</p><br>' +
-										'<p>Booked on : ' + bookedDate + '</p><br>' +
-										'<p>Booked by : ' + bookedBy + '</p><br>' +
-										'<p>Booked from : ' + bookedFrom + '</p><br>' +
-										'<p>Booked to : ' + bookedTo + '</p><br>'
+										'<p>Hosted by : ' + hostUser + '<br>' +
+										'ID : ' + id + '<br>' +
+										'Title : ' + title + '<br>' +
+										'Rate : ' + rate + '<br>' +
+										'Hosted on : ' + hostedDate + '<br>' +
+										'Description : ' + msg + '<br>' +
+										'Latitude : ' + latitude + '<br>' +
+										'Longitude : ' + longitude + '</p>' +
+										'<form class="navbar-form navbar-left" action="/booking" role="search">' +
+											'<div class="form-group">' +
+												'from <input type="datetime"  name="bookFrom" style="width:100%" class="form-control"' +
+	                                                'placeholder="' + dateStr + '">' +
+												' to <input type="datetime"  name="bookTo" style="width:100%" class="form-control"' +
+	                                                'placeholder="' + dateStr + '">' +
+											'</div>' +
+											'<input type="hidden" id="spotId" value="' + id + '" name="spotId">' +
+											'<input type="hidden" id="hostUser" value="' + hostUser + '" name="hostUser">' +
+											'<button type="submit" class="btn btn-default">Book</button>' +	
+										'</form>' +		
 									'</div>';
 				} else {
 					contentString = '<div class="HostMarkerInfo">' +
@@ -245,13 +252,7 @@ function httpCallBackFunction_loadMarkers() {
 									'</div>';
 				}
 														
-				var spotIcon;
-				
-				if (bookedBy == "") {
-					spotIcon = '/resources/unbookedSpot.png';
-				} else {
-					spotIcon = '/resources/bookedSpot.png';
-				}
+				var spotIcon = '/resources/unbookedSpot.png';
 				
 				var geolocation = new google.maps.LatLng(latitude, longitude);
 				var marker = new google.maps.Marker({position: geolocation,
@@ -265,4 +266,11 @@ function httpCallBackFunction_loadMarkers() {
 			alert("No data.");
 		}	
 	}		
+}
+
+//====================================================================================================================
+
+function checkdate(dateStr){
+	var date = new Date(dateStr);
+	alert(date);
 }

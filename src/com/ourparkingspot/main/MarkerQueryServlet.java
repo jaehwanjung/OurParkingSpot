@@ -24,6 +24,7 @@ public class MarkerQueryServlet extends HttpServlet {
 		responseStr = "<?xml version=\"1.0\" encoding=\"ISO-8859-1\" ?>";
 		responseStr += "<markers>";
 		for (Entity spot : pq.asIterable()) {
+			long id = spot.getKey().getId();
 			User hostUser = (User) spot.getProperty("user");
 			String title = (String) spot.getProperty("title");
 			String rate = (String) spot.getProperty("rate");
@@ -35,12 +36,9 @@ public class MarkerQueryServlet extends HttpServlet {
 			String bookedBy = (String) spot.getProperty("bookedBy");
 			String bookedFrom = (String) spot.getProperty("bookedFrom");
 			String bookedTo = (String) spot.getProperty("bookedTo");
-
-			responseStr += "<marker " + "hostUser=\"" + hostUser + "\" " + "title=\"" + title + "\" " + "rate=\""
-					+ rate + "\" " + "hostedDate=\"" + hostedDate + "\" " + "msg=\"" + msg + "\" " + "latitude=\""
-					+ latitude + "\" " + "longitude=\"" + longitude + "\" " + "bookedDate=\"" + bookedDate + "\" "
-					+ "bookedBy=\"" + bookedBy + "\" " + "bookedFrom=\"" + bookedFrom + "\" " + "bookedTo=\""
-					+ bookedTo + "\" " + "></marker>";
+			responseStr += "<marker " + "id=\"" + id + "\" " + "hostUser=\"" + hostUser + "\" " + "title=\"" + title
+					+ "\" " + "rate=\"" + rate + "\" " + "hostedDate=\"" + hostedDate + "\" " + "msg=\"" + msg + "\" "
+					+ "latitude=\"" + latitude + "\" " + "longitude=\"" + longitude + "\" " + "></marker>";
 		}
 		responseStr += "</markers>";
 
