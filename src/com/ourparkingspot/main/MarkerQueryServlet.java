@@ -12,6 +12,9 @@ import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.Filter;
+import com.google.appengine.api.datastore.Query.FilterOperator;
+import com.google.appengine.api.datastore.Query.FilterPredicate;
 import com.google.appengine.api.users.User;
 
 @SuppressWarnings("serial")
@@ -35,6 +38,21 @@ public class MarkerQueryServlet extends HttpServlet {
 			responseStr += "<marker " + "id=\"" + id + "\" " + "hostUser=\"" + hostUser + "\" " + "title=\"" + title
 					+ "\" " + "rate=\"" + rate + "\" " + "hostedDate=\"" + hostedDate + "\" " + "msg=\"" + msg + "\" "
 					+ "latitude=\"" + latitude + "\" " + "longitude=\"" + longitude + "\" " + "></marker>";
+
+			Query qr = new Query("Review").addSort("reviewDate", Query.SortDirection.DESCENDING);
+			Filter keyFilter = new FilterPredicate("reviewSpotKey", FilterOperator.EQUAL, spot.getKey());
+			qr.setFilter(keyFilter);
+			PreparedQuery pq2 = datastore.prepare(qr);
+			responseStr += "<reviews>";
+			for (Entity review : pq2.asIterable()) {
+				String reviewMsg = (String) review.getProperty("reviewMsg");
+				User writer = (User) review.getProperty("writer");
+				Date reviewDate = (Date) review.getProperty("reviewDate");
+
+				responseStr += "<review " + "writer=\"" + writer + "\" " + "reviewDate=\"" + reviewDate + "\" "
+						+ "reviewMsg=\"" + reviewMsg + "></review>";
+			}
+			responseStr += "</reviews>";
 		}
 		responseStr += "</markers>";
 
