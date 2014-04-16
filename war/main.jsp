@@ -84,9 +84,9 @@
                                 </div>
                                 <div class="navbar-collapse collapse">
 									<ul class="nav navbar-nav">
-										<li class="active"><a href="#">Home</a></li>
-										<li><a href="#">About</a></li>
-										<li><a href="#">Manage Bookings</a></li>	                
+										<li class="active"><a href="#map-canvas" data-toggle="tab">Home</a></li>
+										<li><a href="#about" data-toggle="tab">About</a></li>
+										<li><a href="#manageBookings" data-toggle="tab">Manage Bookings</a></li>	                
 									</ul>
 									<%
 									    String searchedLatitude = request.getParameter("lat");
@@ -145,7 +145,11 @@
 <!-- ============================================================================================================================= -->
             <!-- Main Page -->                
                 <div class="jumbotron mainPage">
-                    <div id="map-canvas" class="mapCanvas"></div>
+                    <div class="tab-content">
+	                    <div class="mapCanvas tab-pane active" id="map-canvas"></div>
+	                    <div class="tab-pane" id="about"></div>
+	                    <div class="tab-pane" id="manageBookings"></div>
+	                </div>
                 </div>
                 <script>
                     adjustMapHeight();
