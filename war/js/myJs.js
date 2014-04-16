@@ -244,7 +244,18 @@ function httpCallBackFunction_loadMarkers() {
 											'<input type="hidden" id="spotId" value="' + id + '" name="spotId">' +
 											'<input type="hidden" id="hostUser" value="' + hostUser + '" name="hostUser">' +
 											'<button type="submit" class="btn btn-default">Book</button>' +	
-										'</form>' +		
+										'</form>' +	
+										'<form action="/guestbook">' +
+											'<div style="margin-bottom:10px">' +
+												'[Reviews]<br>' + 
+												'<textarea class="form-control" name="reviewMsg" rows="3" cols="30"></textarea>' +
+											'</div>' +
+											'<div>' +
+												'<input type="submit" class="btn btn-success" value="Leave a Review">' +
+												'<input type="hidden" id="spotId" value="' + id + '" name="spotId">' +
+												'<input type="hidden" id="hostUser" value="' + hostUser + '" name="hostUser">' +
+									        '</div>' +
+										'</form>' +
 									'</div>';
 				} else {
 					contentString = '<div class="HostMarkerInfo">' +
