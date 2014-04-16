@@ -147,8 +147,19 @@
                 <div class="jumbotron mainPage">
                     <div class="tab-content">
 	                    <div class="mapCanvas tab-pane active" id="map-canvas"></div>
-	                    <div class="tab-pane" id="about"></div>
-	                    <div class="tab-pane" id="manageBookings"></div>
+	                    <div class="tab-pane" id="about">
+	                       <div>
+	                           <p>Final Project developed for EECE 417 @ UBC</p>
+	                           Group 14 Members:
+	                               <ul>
+	                                   <li>Jae-Hwan Jung</li>
+	                                   <li>Vincent Chiu</li>
+	                                   <li>Jon Leung</li>
+	                               </ul>	                            
+	                       </div>
+	                    </div>
+	                    <div class="tab-pane" id="manageBookings">
+	                    </div>
 	                </div>
                 </div>
                 <script>
