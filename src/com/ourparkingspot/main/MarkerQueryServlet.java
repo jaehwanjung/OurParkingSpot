@@ -37,7 +37,7 @@ public class MarkerQueryServlet extends HttpServlet {
 			String longitude = (String) spot.getProperty("longitude");
 			responseStr += "<marker " + "id=\"" + id + "\" " + "hostUser=\"" + hostUser + "\" " + "title=\"" + title
 					+ "\" " + "rate=\"" + rate + "\" " + "hostedDate=\"" + hostedDate + "\" " + "msg=\"" + msg + "\" "
-					+ "latitude=\"" + latitude + "\" " + "longitude=\"" + longitude + "\" " + "></marker>";
+					+ "latitude=\"" + latitude + "\" " + "longitude=\"" + longitude + "\" " + ">";
 
 			Query qr = new Query("Review").addSort("reviewDate", Query.SortDirection.DESCENDING);
 			Filter keyFilter = new FilterPredicate("reviewSpotKey", FilterOperator.EQUAL, spot.getKey());
@@ -49,10 +49,10 @@ public class MarkerQueryServlet extends HttpServlet {
 				User writer = (User) review.getProperty("writer");
 				Date reviewDate = (Date) review.getProperty("reviewDate");
 
-				responseStr += "<review " + "writer=\"" + writer + "\" " + "reviewDate=\"" + reviewDate + "\" "
-						+ "reviewMsg=\"" + reviewMsg + "></review>";
+				responseStr += "<review " + "writer=\"" + writer + "\" " + "reviewDate=\"" + reviewDate + "\" " + ">"
+						+ reviewMsg + "</review>";
 			}
-			responseStr += "</reviews>";
+			responseStr += "</reviews></marker>";
 		}
 		responseStr += "</markers>";
 

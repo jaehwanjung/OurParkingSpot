@@ -255,8 +255,21 @@ function httpCallBackFunction_loadMarkers() {
 												'<input type="hidden" id="spotId" value="' + id + '" name="spotId">' +
 												'<input type="hidden" id="hostUser" value="' + hostUser + '" name="hostUser">' +
 									        '</div>' +
-										'</form>' +
-									'</div>';
+										'</form>';
+					
+					var reviewElements = markerElement.childNodes[0].childNodes;
+					for(i = 0; i < reviewElements.length; i++) {
+						var review = reviewElements[i];
+						var writer = review.getAttribute("writer");
+						var reviewDate = review.getAttribute("reviewDate");
+						var reviewMsg = review.childNodes[0].nodeValue;
+						contentString += "<div class=\"well well-sm\">" +
+											"Written by: " + writer + "<br>" +
+											"Posted on: " + reviewDate + "<br>" +
+											"Review: " + reviewMsg +
+										 "</div>";
+					}
+					contentString += "</div>";
 				} else {
 					contentString = '<div class="HostMarkerInfo">' +
 										'<p>Please log in to book this spot.</p>' +
