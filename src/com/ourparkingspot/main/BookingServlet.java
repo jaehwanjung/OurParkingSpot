@@ -44,7 +44,7 @@ public class BookingServlet extends HttpServlet {
 				PreparedQuery pq = datastore.prepare(q);
 				boolean canBook = true;
 				for (Entity booking : pq.asIterable()) {
-					Key bookedSpotKey = (Key) booking.getProperty("bookedSpotKey");
+
 					Date existingFrom = (Date) booking.getProperty("bookFrom");
 					Date existingTo = (Date) booking.getProperty("bookTo");
 					if (booking.getParent().getParent().equals(spotKey)) {

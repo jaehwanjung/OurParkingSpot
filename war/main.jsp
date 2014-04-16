@@ -171,6 +171,7 @@
         
         <script>
             loadMarkers();
+            loadBookings();
         </script>
 
 	<!-- Bootstrap core JavaScript -->

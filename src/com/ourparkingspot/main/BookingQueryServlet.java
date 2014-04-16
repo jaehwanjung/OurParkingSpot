@@ -1,45 +1,69 @@
 package com.ourparkingspot.main;
 
 import java.io.IOException;
+import java.util.Date;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.EntityNotFoundException;
+import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.users.User;
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
+
 @SuppressWarnings("serial")
 public class BookingQueryServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-		// String responseStr;
-		// DatastoreService datastore =
-		// DatastoreServiceFactory.getDatastoreService();
-		// Query q = new Query("Bookings");
-		// PreparedQuery pq = datastore.prepare(q);
-		// responseStr = "<?xml version=\"1.0\" encoding=\"ISO-8859-1\" ?>";
-		// responseStr += "<markers>";
-		// for (Entity booking : pq.asIterable()) {
-		// Key key = booking.getKey();
-		// User hostUser = (User) spot.getProperty("user");
-		// String title = (String) spot.getProperty("title");
-		// String rate = (String) spot.getProperty("rate");
-		// Date hostedDate = (Date) spot.getProperty("hostedDate");
-		// String msg = (String) spot.getProperty("msg");
-		// String latitude = (String) spot.getProperty("latitude");
-		// String longitude = (String) spot.getProperty("longitude");
-		// String bookedDate = (String) spot.getProperty("bookedDate");
-		// String bookedBy = (String) spot.getProperty("bookedBy");
-		// String bookedFrom = (String) spot.getProperty("bookedFrom");
-		// String bookedTo = (String) spot.getProperty("bookedTo");
-		// responseStr += "<marker " + "id=\"" + id + "\" " + "hostUser=\"" +
-		// hostUser + "\" " + "title=\"" + title
-		// + "\" " + "rate=\"" + rate + "\" " + "hostedDate=\"" + hostedDate +
-		// "\" " + "msg=\"" + msg + "\" "
-		// + "latitude=\"" + latitude + "\" " + "longitude=\"" + longitude +
-		// "\" " + "></marker>";
-		// }
-		// responseStr += "</markers>";
-		//
-		// System.out.println(responseStr);
-		// resp.setContentType("text/html");
-		// resp.getWriter().println(responseStr);
+		UserService userService = UserServiceFactory.getUserService();
+		User user = userService.getCurrentUser();
+		String responseStr = "";
+		if (user != null) {
+
+			DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+			Query q = new Query("Bookings");
+			PreparedQuery pq = datastore.prepare(q);
+			responseStr += "<div>";
+			for (Entity booking : pq.asIterable()) {
+				Key bookedSpotKey = (Key) booking.getProperty("bookedSpotKey");
+				User bookedUser = (User) booking.getProperty("bookedBy");
+				Date bookFrom = (Date) booking.getProperty("bookFrom");
+				Date bookTo = (Date) booking.getProperty("bookTo");
+				Date bookedDate = (Date) booking.getProperty("bookedDate");
+
+				Entity bookedSpot = null;
+				try {
+					bookedSpot = datastore.get(bookedSpotKey);
+				} catch (EntityNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				String title = (String) bookedSpot.getProperty("title");
+				String msg = (String) bookedSpot.getProperty("msg");
+				String rate = (String) bookedSpot.getProperty("rate");
+				String lat = (String) bookedSpot.getProperty("latitude");
+				String lon = (String) bookedSpot.getProperty("longitude");
+
+				if (bookedUser.equals(user)) {
+					responseStr += "<div class=\"well\">" + "Title: " + title + "<br>" + "rate: " + rate + "<br>"
+							+ "msg: " + msg + "<br>" + "Location: Latitude [" + lat + "] Longitude [" + lon + "]<br>"
+							+ "Booked from:" + bookFrom.toString() + "<br>" + "Booked to:" + bookTo.toString() + "<br>"
+							+ "Booked on:" + bookedDate.toString() + "<br></div>";
+				}
+			}
+			responseStr += "</div>";
+
+		} else {
+			responseStr = "Please log in to see your bookings";
+		}
+		System.out.println(responseStr);
+		resp.setContentType("text/html");
+		resp.getWriter().println(responseStr);
 	}
 }

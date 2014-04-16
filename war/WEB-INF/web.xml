@@ -5,6 +5,14 @@ xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
 http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
     <servlet>
+        <servlet-name>bookingQuery</servlet-name>
+        <servlet-class>com.ourparkingspot.main.BookingQueryServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>bookingQuery</servlet-name>
+        <url-pattern>/bookingQuery</url-pattern>
+    </servlet-mapping>
+    <servlet>
         <servlet-name>markerQuery</servlet-name>
         <servlet-class>com.ourparkingspot.main.MarkerQueryServlet</servlet-class>
     </servlet>

@@ -270,7 +270,33 @@ function httpCallBackFunction_loadMarkers() {
 
 //====================================================================================================================
 
-function checkdate(dateStr){
-	var date = new Date(dateStr);
-	alert(date);
+function loadBookings() {
+	try {
+		xmlHttpReq2 = new XMLHttpRequest();
+		xmlHttpReq2.onreadystatechange = httpCallBackFunction_loadBookings;
+		xmlHttpReq2.open('GET', "/bookingQuery", true);
+    	xmlHttpReq2.send(null);
+	} catch (e) {
+    	alert("Error: " + e);
+	}		
+}
+
+function httpCallBackFunction_loadBookings() {
+	if (xmlHttpReq2.readyState == 4){
+		
+		var xmlDoc = null;
+
+		if(xmlHttpReq2.responseXML){
+			xmlDoc = xmlHttpReq2.responseXML;
+		}else if(xmlHttpReq2.responseText){
+			var parser = new DOMParser();
+		 	xmlDoc = parser.parseFromString(xmlHttpReq2.responseText,"text/xml");			 	
+		}
+
+		if(xmlDoc){										
+			document.getElementById("manageBookings").innerHTML = xmlHttpReq2.responseText
+		}else{
+			alert("No data.");
+		}	
+	}		
 }
