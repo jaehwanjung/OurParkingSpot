@@ -70,6 +70,7 @@ public class BookingServlet extends HttpServlet {
 					Key bookingKey = KeyFactory.createKey(spotKey, "Bookings", user.getNickname());
 
 					Entity booking = new Entity("Bookings", bookingKey);
+					booking.setProperty("spot", spot);
 					booking.setProperty("bookedBy", user);
 					booking.setProperty("bookFrom", bookFrom);
 					booking.setProperty("bookTo", bookTo);

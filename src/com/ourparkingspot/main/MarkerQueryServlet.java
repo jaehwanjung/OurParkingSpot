@@ -32,10 +32,6 @@ public class MarkerQueryServlet extends HttpServlet {
 			String msg = (String) spot.getProperty("msg");
 			String latitude = (String) spot.getProperty("latitude");
 			String longitude = (String) spot.getProperty("longitude");
-			String bookedDate = (String) spot.getProperty("bookedDate");
-			String bookedBy = (String) spot.getProperty("bookedBy");
-			String bookedFrom = (String) spot.getProperty("bookedFrom");
-			String bookedTo = (String) spot.getProperty("bookedTo");
 			responseStr += "<marker " + "id=\"" + id + "\" " + "hostUser=\"" + hostUser + "\" " + "title=\"" + title
 					+ "\" " + "rate=\"" + rate + "\" " + "hostedDate=\"" + hostedDate + "\" " + "msg=\"" + msg + "\" "
 					+ "latitude=\"" + latitude + "\" " + "longitude=\"" + longitude + "\" " + "></marker>";
