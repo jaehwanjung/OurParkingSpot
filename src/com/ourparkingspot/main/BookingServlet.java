@@ -44,22 +44,20 @@ public class BookingServlet extends HttpServlet {
 				PreparedQuery pq = datastore.prepare(q);
 				boolean canBook = true;
 				for (Entity booking : pq.asIterable()) {
+					Key bookedSpotKey = (Key) booking.getProperty("bookedSpotKey");
 					Date existingFrom = (Date) booking.getProperty("bookFrom");
 					Date existingTo = (Date) booking.getProperty("bookTo");
 					if (booking.getParent().getParent().equals(spotKey)) {
 						System.out.println(booking);
 						if (bookFrom.after(existingFrom) && bookFrom.before(existingTo)) {
-							System.out.println("Case  1");
 							canBook = false;
 							break;
 						}
 						if (bookTo.after(existingFrom) && bookTo.before(existingTo)) {
-							System.out.println("Case  2");
 							canBook = false;
 							break;
 						}
 						if (bookFrom.before(existingFrom) && bookTo.after(existingTo)) {
-							System.out.println("Case  3");
 							canBook = false;
 							break;
 						}
@@ -70,13 +68,12 @@ public class BookingServlet extends HttpServlet {
 					Key bookingKey = KeyFactory.createKey(spotKey, "Bookings", user.getNickname());
 
 					Entity booking = new Entity("Bookings", bookingKey);
-					booking.setProperty("spot", spot);
+					booking.setProperty("bookedSpotKey", spot.getKey());
 					booking.setProperty("bookedBy", user);
 					booking.setProperty("bookFrom", bookFrom);
 					booking.setProperty("bookTo", bookTo);
 					booking.setProperty("bookedDate", new Date());
 					datastore.put(booking);
-					System.out.println("putting : " + booking);
 					msg = "Successfully booked!";
 				} else {
 					msg = "Can't book during the specified time. Choose different time!";
