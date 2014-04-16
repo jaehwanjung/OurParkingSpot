@@ -54,8 +54,14 @@ public class BookingQueryServlet extends HttpServlet {
 					responseStr += "<div class=\"well\">" + "Title: " + title + "<br>" + "rate: " + rate + "<br>"
 							+ "msg: " + msg + "<br>" + "Location: Latitude [" + lat + "] Longitude [" + lon + "]<br>"
 							+ "Booked from:" + bookFrom.toString() + "<br>" + "Booked to:" + bookTo.toString() + "<br>"
-							+ "Booked on:" + bookedDate.toString() + "<br></div>";
+							+ "Booked on:" + bookedDate.toString() + "<br>"
+							+ "<form class=\"navbar-form navbar-left\" action=\"/cancel\">"
+							+ "<input type=\"hidden\" id=\"bookingKey\" value=\"" + booking.getKey().getId()
+							+ "\"name=\"bookingKey\">"
+							+ "<button type=\"submit\" class=\"btn btn-default\">Cancel</button>" + "</form>"
+							+ "</div>";
 				}
+				System.out.println(responseStr);
 			}
 			responseStr += "</div>";
 
