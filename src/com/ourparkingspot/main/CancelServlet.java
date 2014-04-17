@@ -1,6 +1,7 @@
 package com.ourparkingspot.main;
 
 import java.io.IOException;
+import java.util.Date;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -25,14 +26,20 @@ public class CancelServlet extends HttpServlet {
 			long bookingKey = Long.parseLong(req.getParameter("bookingKey"));
 
 			DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+			Date currentDate = new Date();
 			Query q = new Query("Bookings");
 			PreparedQuery pq = datastore.prepare(q);
 			for (Entity booking : pq.asIterable()) {
-				if (booking.getKey().getId() == bookingKey)
+				if ((booking.getKey().getId() == bookingKey) && (currentDate.after((Date) booking.getProperty("bookFrom")))) {
+					resp.sendRedirect(String.format("/main.jsp?msg=%s", "Booking has already begun, can not cancel booking"));
+				}
+				
+				else if ((booking.getKey().getId() == bookingKey) && (currentDate.before((Date) booking.getProperty("bookFrom")))){
 					datastore.delete(booking.getKey());
+				    resp.sendRedirect(String.format("/main.jsp?msg=%s", "Booking cancelled"));
+				}
 			}
 
-			resp.sendRedirect(String.format("/main.jsp"));
 		} else {
 			resp.sendRedirect(String.format("/main.jsp?error=%s", "No User"));
 		}
