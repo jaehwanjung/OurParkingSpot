@@ -80,7 +80,7 @@
 										<span class="icon-bar"></span>
 										<span class="icon-bar"></span>
 									</button>
-                                    <a class="navbar-brand" href="#">OurParkingSpot</a>
+                                    <a class="navbar-brand" href="javascript:location.reload(true);">OurParkingSpot</a>
                                 </div>
                                 <div class="navbar-collapse collapse">
 									<ul class="nav navbar-nav">
