@@ -1,8 +1,8 @@
-<!-- Indices written at Wed, 16 Apr 2014 19:29:29 PDT -->
+<!-- Indices written at Wed, 16 Apr 2014 19:40:34 PDT -->
 
 <datastore-indexes>
 
-    <!-- Used 5 times in query history -->
+    <!-- Used 2 times in query history -->
     <datastore-index kind="Review" ancestor="false" source="auto">
         <property name="reviewSpotKey" direction="asc"/>
         <property name="reviewDate" direction="desc"/>

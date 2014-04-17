@@ -27,7 +27,8 @@ public class BookingQueryServlet extends HttpServlet {
 		if (user != null) {
 
 			DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-			Query q = new Query("Bookings");
+			Query q = new Query("Bookings").addSort("bookedDate", Query.SortDirection.DESCENDING);
+			;
 			PreparedQuery pq = datastore.prepare(q);
 			responseStr += "<div>";
 			for (Entity booking : pq.asIterable()) {
