@@ -34,7 +34,7 @@
 <!-- ============================================================================================================================= -->
     <!-- Javascripts -->
 	    <script type="text/javascript" src="/js/myJs.js"></script>        
-	    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDh0t8xGJIIHStBk-MN3wYzC-nn8SJ09U4&sensor=true"> </script> 
+	    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCGGPuwyfQ4uXwnQgAlantb5yfdR-R5Mkc&sensor=true"> </script> 
 	    <script type="text/javascript"> 	      
 	        function initialize() {	  
 	            var vancouverLatLng = new google.maps.LatLng(49.2842,-123.1211);  
