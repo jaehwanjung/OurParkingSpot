@@ -30,11 +30,11 @@ public class CancelServlet extends HttpServlet {
 			Query q = new Query("Bookings");
 			PreparedQuery pq = datastore.prepare(q);
 			for (Entity booking : pq.asIterable()) {
-				if ((booking.getKey().getId() == bookingKey) && (currentDate.after((Date) booking.getProperty("bookFrom")))) {
+				if ((booking.getKey().getId() == bookingKey) && currentDate.after((Date) booking.getProperty("bookFrom")) && currentDate.before((Date) booking.getProperty("bookTo"))) {
 					resp.sendRedirect(String.format("/main.jsp?msg=%s", "Booking has already begun, can not cancel booking"));
 				}
 				
-				else if ((booking.getKey().getId() == bookingKey) && (currentDate.before((Date) booking.getProperty("bookFrom")))){
+				else if ((booking.getKey().getId() == bookingKey) && (currentDate.before((Date) booking.getProperty("bookFrom")) || currentDate.after((Date) booking.getProperty("bookTo")))){
 					datastore.delete(booking.getKey());
 				    resp.sendRedirect(String.format("/main.jsp?msg=%s", "Booking cancelled"));
 				}
