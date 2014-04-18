@@ -246,16 +246,23 @@ function httpCallBackFunction_loadMarkers() {
 					// Booking tab
 					contentString +='<div id="booking" class="tab-pane">' 
 					var bookings = markerElement.childNodes[1].childNodes;
-					contentString += '<div>' + '<p> Current Bookings </p>' + 
-								'<table border="1" > <tr> <td> <b> Booked From </b> </td> <td> <b> Booked Until </b> </td> <td> <b> Booked By </b> </td> </tr>'
-					for(i = 0; i < bookings.length ; i++) {
-						var booking = bookings[i];
-						var bookFrom = booking.getAttribute("bookFrom");
-						var bookTo = booking.getAttribute("bookTo");
-						var bookedBy = booking.getAttribute("bookedBy");
-						contentString += "<tr> <td>" + bookFrom + "</td> <td>" + bookTo + "</td> <td>" + bookedBy + "</td> </tr>"
+					contentString += '<div>' + '<p> Current Bookings </p>';
+					if (bookings.length == 0) {
+						contentString += 'There are no bookings.';
 					}
-					contentString += "</table>";
+					
+					else {
+						contentString += '<table border="1" > <tr> <td> <b> Booked From </b> </td> <td> <b> Booked Until </b> </td> <td> <b> Booked By </b> </td> </tr>'
+					
+						for(i = 0; i < bookings.length ; i++) {
+							var booking = bookings[i];
+							var bookFrom = booking.getAttribute("bookFrom");
+							var bookTo = booking.getAttribute("bookTo");
+							var bookedBy = booking.getAttribute("bookedBy");
+							contentString += "<tr> <td>" + bookFrom + "</td> <td>" + bookTo + "</td> <td>" + bookedBy + "</td> </tr>"
+						}
+						contentString += "</table>";
+					}
 					contentString += "</div>";
 					
 					contentString += '<br> <p> Book This Spot </p>' + '<form class="navbar-form navbar-left" action="/booking" role="search">' +
@@ -298,62 +305,6 @@ function httpCallBackFunction_loadMarkers() {
 										 "</div>";
 					}				
 					contentString += "</div>";		
-				/*	contentString = '<div class="HostMarkerInfo">' +
-										'<p>Hosted by : ' + hostUser + '<br>' +
-										'ID : ' + id + '<br>' +
-										'Title : ' + title + '<br>' +
-										'Rate : ' + rate + '<br>' +
-										'Hosted on : ' + hostedDate + '<br>' +
-										'Description : ' + msg + '<br>' +
-										'Latitude : ' + latitude + '<br>' +
-										'Longitude : ' + longitude + '</p>' +
-										'<form class="navbar-form navbar-left" action="/booking" role="search">' +
-											'<div class="form-group">' +
-												'from <input type="datetime"  name="bookFrom" style="width:100%" class="form-control"' +
-	                                                'placeholder="' + dateStr + '">' +
-												' to <input type="datetime"  name="bookTo" style="width:100%" class="form-control"' +
-	                                                'placeholder="' + dateStr + '">' +
-											'</div>' +
-											'<input type="hidden" id="spotId" value="' + id + '" name="spotId">' +
-											'<input type="hidden" id="hostUser" value="' + hostUser + '" name="hostUser">' +
-											'<button type="submit" class="btn btn-default">Book</button>' +	
-										'</form>' +	
-										'<form action="/guestbook">' +
-											'<div style="margin-bottom:10px">' +
-												'[Reviews]<br>' + 
-												'<textarea class="form-control" name="reviewMsg" rows="3" cols="30"></textarea>' +
-											'</div>' +
-											'<div>' +
-												'<input type="submit" class="btn btn-success" value="Leave a Review">' +
-												'<input type="hidden" id="spotId" value="' + id + '" name="spotId">' +
-												'<input type="hidden" id="hostUser" value="' + hostUser + '" name="hostUser">' +
-									        '</div>' +
-										'</form>';
-					
-					var reviewElements = markerElement.childNodes[0].childNodes;
-					for(i = 0; i < reviewElements.length; i++) {
-						var review = reviewElements[i];
-						var writer = review.getAttribute("writer");
-						var reviewDate = review.getAttribute("reviewDate");
-						var reviewMsg = review.childNodes[0].nodeValue;
-						contentString += "<div class=\"well well-sm\">" +
-											"Written by: " + writer + "<br>" +
-											"Posted on: " + reviewDate + "<br>" +
-											"Review: " + reviewMsg +
-										 "</div>";
-					}
-					
-					var bookings = markerElement.childNodes[1].childNodes;
-					contentString += "<div>" +
-										"<table border=\"1\" > <tr> <td> <b> Booked From </b> </td> <td> <b> Booked Until </b> </td> <td> <b> Booked By </b> </td> </tr>"
-					for(i = 0; i < bookings.length ; i++) {
-						var booking = bookings[i];
-						var bookFrom = booking.getAttribute("bookFrom");
-						var bookTo = booking.getAttribute("bookTo");
-						var bookedBy = booking.getAttribute("bookedBy");
-						contentString += "<tr> <td>" + bookFrom + "</td> <td>" + bookTo + "</td> <td>" + bookedBy + "</td> </tr>"
-					}
-					contentString += "</table>";*/
 					contentString += "</div>";
 					contentString += "</div>";
 				} else {
