@@ -30,6 +30,7 @@ public class BookingServlet extends HttpServlet {
 			String hostUser = req.getParameter("hostUser");
 			Date bookFrom = new Date(req.getParameter("bookFrom"));
 			Date bookTo = new Date(req.getParameter("bookTo"));
+
 			Key parentKey = KeyFactory.createKey("HostedSpots", hostUser);
 			Key spotKey = KeyFactory.createKey(parentKey, "HostedSpots", id);
 			DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
@@ -74,7 +75,19 @@ public class BookingServlet extends HttpServlet {
 					booking.setProperty("bookTo", bookTo);
 					booking.setProperty("bookedDate", new Date());
 					datastore.put(booking);
-					msg = "Successfully booked!";
+					
+					// Calculate cost
+					long start = bookFrom.getTime(); // in ms
+					long end = bookTo.getTime();
+					double total = end - start; 
+					total /= 3600000; // convert to hours
+					String rateStr = (String) spot.getProperty("rate");
+					long rate = Long.parseLong(rateStr);
+					total *= rate;
+					
+					
+					msg = "Successfully booked!\n";
+					msg += "The total cost is $" + String.format("%.2f", total);
 				} else {
 					msg = "Can't book during the specified time. Choose different time!";
 				}
