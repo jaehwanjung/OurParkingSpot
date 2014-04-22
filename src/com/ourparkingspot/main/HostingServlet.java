@@ -29,7 +29,7 @@ public class HostingServlet extends HttpServlet {
 			String latitude = req.getParameter("latitude");
 			String longitude = req.getParameter("longitude");
 
-			Key hostKey = KeyFactory.createKey("HostedSpots", user.getNickname());
+			Key hostKey = KeyFactory.createKey("HostedSpots", user.getEmail());
 			Entity spot = new Entity("HostedSpots", hostKey);
 			spot.setProperty("user", user);
 			spot.setProperty("title", title);

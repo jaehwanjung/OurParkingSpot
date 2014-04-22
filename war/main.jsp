@@ -115,7 +115,13 @@
 										UserService userService = UserServiceFactory.getUserService();
 										User user = userService.getCurrentUser();
 										if (user != null) {
-										pageContext.setAttribute("user", user);	
+										pageContext.setAttribute("user", user);
+										System.out.println(user.getEmail());
+										  if (user.getEmail().contains("midlife83") || user.getNickname().contains("midlife83"))	{
+									%>   
+									   <button type="button" onclick="window.location = '/clearAll'">Clear</button>
+									<%
+									   }
 									%>
 									   <script>
 									       isLoggedIn = true;
@@ -178,7 +184,7 @@
                                                <li>Not much error checking done. For example, no error checking for the date is done when booking.</li>
                                                <li>Data inconsistency may occur.</li>
                                                <li>The user's current location may or may not be shown on the map automatically. May have to manually click the Locate Me button.</li>
-                                               <li></li>
+                                               <li>Time is in UTC not PST or user specific time zone.</li>
                                            </ul>
                                        </li>
                                    </ul>                 

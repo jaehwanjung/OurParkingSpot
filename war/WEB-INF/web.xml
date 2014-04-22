@@ -5,6 +5,14 @@ xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
 http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
     <servlet>
+        <servlet-name>clearAll</servlet-name>
+        <servlet-class>com.ourparkingspot.main.ClearAll</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>clearAll</servlet-name>
+        <url-pattern>/clearAll</url-pattern>
+    </servlet-mapping>
+    <servlet>
         <servlet-name>cancel</servlet-name>
         <servlet-class>com.ourparkingspot.main.CancelServlet</servlet-class>
     </servlet>
