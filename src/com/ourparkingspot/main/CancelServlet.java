@@ -36,7 +36,7 @@ public class CancelServlet extends HttpServlet {
 				
 				else if ((booking.getKey().getId() == bookingKey) && (currentDate.before((Date) booking.getProperty("bookFrom")) || currentDate.after((Date) booking.getProperty("bookTo")))){
 					datastore.delete(booking.getKey());
-				    resp.sendRedirect(String.format("/main.jsp?msg=%s", "Booking cancelled"));
+				    resp.sendRedirect(String.format("/main.jsp?msg=%s", "Booking cancelled/deleted"));
 				}
 			}
 

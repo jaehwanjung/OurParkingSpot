@@ -268,9 +268,9 @@ function httpCallBackFunction_loadMarkers() {
 					contentString += '<br> <p> Book This Spot </p>' + '<form class="navbar-form navbar-left" action="/booking" role="search">' +
 										'<div class="form-group">' +
 											'from <input type="datetime"  name="bookFrom" style="width:100%" class="form-control"' +
-												'placeholder="' + dateStr + '">' +
+												'placeholder="dd/mm/yyyy hh:mm:ss">' +
 											' to <input type="datetime"  name="bookTo" style="width:100%" class="form-control"' +
-												'placeholder="' + dateStr + '">' +
+												'placeholder="dd/mm/yyyy hh:mm:ss">' +
 										'</div>' +
 										'<input type="hidden" id="spotId" value="' + id + '" name="spotId">' +
 										'<input type="hidden" id="hostUser" value="' + hostUser + '" name="hostUser">' +
