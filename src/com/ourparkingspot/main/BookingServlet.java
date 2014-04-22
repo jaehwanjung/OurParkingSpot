@@ -1,6 +1,7 @@
 package com.ourparkingspot.main;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.servlet.http.HttpServlet;
@@ -28,8 +29,23 @@ public class BookingServlet extends HttpServlet {
 		if (user != null) {
 			long id = Long.parseLong(req.getParameter("spotId"));
 			String hostUser = req.getParameter("hostUser");
-			Date bookFrom = new Date(req.getParameter("bookFrom"));
-			Date bookTo = new Date(req.getParameter("bookTo"));
+			Date bookFrom = null;
+			Date bookTo = null;
+			
+			try {
+			    SimpleDateFormat format =
+			        new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+			    bookFrom = format.parse(req.getParameter("bookFrom"));
+			    bookTo =  format.parse(req.getParameter("bookTo"));
+			}
+			catch(Exception pe) {
+			    throw new IllegalArgumentException();
+			}
+			System.out.println(bookFrom);
+			System.out.println(bookTo);
+			System.out.println(req.getParameter("bookFrom"));
+			System.out.println(req.getParameter("bookTo"));
+
 			Key parentKey = KeyFactory.createKey("HostedSpots", hostUser);
 			Key spotKey = KeyFactory.createKey(parentKey, "HostedSpots", id);
 			DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
@@ -74,7 +90,19 @@ public class BookingServlet extends HttpServlet {
 					booking.setProperty("bookTo", bookTo);
 					booking.setProperty("bookedDate", new Date());
 					datastore.put(booking);
+					
+					// Calculate cost
+					long start = bookFrom.getTime(); // in ms
+					long end = bookTo.getTime();
+					double total = end - start; 
+					total /= 3600000; // convert to hours
+					String rateStr = (String) spot.getProperty("rate");
+					long rate = Long.parseLong(rateStr);
+					total *= rate;
+					
+					
 					msg = "Successfully booked!";
+					msg += " The total cost is $" + String.format("%.2f", total);
 				} else {
 					msg = "Can't book during the specified time. Choose different time!";
 				}

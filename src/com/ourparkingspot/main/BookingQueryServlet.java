@@ -50,12 +50,22 @@ public class BookingQueryServlet extends HttpServlet {
 				String rate = (String) bookedSpot.getProperty("rate");
 				String lat = (String) bookedSpot.getProperty("latitude");
 				String lon = (String) bookedSpot.getProperty("longitude");
+				
+				String status;
+				Date currentDate = new Date();
+				if (currentDate.before(bookFrom) && (currentDate.before(bookTo)))
+					status = "Not started";
+				else if ((currentDate.after(bookFrom) && (currentDate.before(bookTo))))
+					status = "Started";
+				else
+					status = "Expired";
 
 				if (bookedUser.equals(user)) {
 					responseStr += "<div class=\"well\">" + "Title: " + title + "<br>" + "rate: " + rate + "<br>"
 							+ "msg: " + msg + "<br>" + "Location: Latitude [" + lat + "] Longitude [" + lon + "]<br>"
 							+ "Booked from:" + bookFrom.toString() + "<br>" + "Booked to:" + bookTo.toString() + "<br>"
 							+ "Booked on:" + bookedDate.toString() + "<br>"
+							+ "Booking status: " + status + "<br>"
 							+ "<form class=\"navbar-form navbar-left\" action=\"/cancel\">"
 							+ "<input type=\"hidden\" id=\"bookingKey\" value=\"" + booking.getKey().getId()
 							+ "\"name=\"bookingKey\">"
