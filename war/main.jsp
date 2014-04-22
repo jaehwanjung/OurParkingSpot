@@ -80,7 +80,7 @@
 										<span class="icon-bar"></span>
 										<span class="icon-bar"></span>
 									</button>
-                                    <a class="navbar-brand" href="javascript:location.reload(true);">OurParkingSpot</a>
+                                    <a class="navbar-brand" href="/">OurParkingSpot</a>
                                 </div>
                                 <div class="navbar-collapse collapse">
 									<ul class="nav navbar-nav">
@@ -155,7 +155,33 @@
 	                                   <li>Jae-Hwan Jung</li>
 	                                   <li>Vincent Chiu</li>
 	                                   <li>Jon Leung</li>
-	                               </ul>	                            
+	                               </ul>	      
+	                           <br>     
+	                           Warnings/Assumptions/Bugs:
+                                   <ul>
+                                       <li>This is a prototype which implements only the following functions either fully or partially:
+	                                       <ul>
+	                                           <li>Parking icons on the map for hosted spots</li>
+											   <li>Login via gmail accounts</li>
+											   <li>View the user's "not started"/"started"/"expired" bookings</li>
+											   <li>Cancel a booking that hasn't started</li>
+											   <li>Make a new booking</li>
+											   <li>Locating the user's current location</li>
+											   <li>Writing/Reading reviews for each spot</li>
+											   <li>Rent rate calculation</li>
+											   <li>Search function for a specific location</li>
+										   </ul>
+                                       </li>
+                                       <li>Bugs:
+                                           <ul>
+                                               <li>Sometimes have to refresh the page to see P icons</li>
+                                               <li>Not much error checking done. For example, no error checking for the date is done when booking.</li>
+                                               <li>Data inconsistency may occur.</li>
+                                               <li>The user's current location may or may not be shown on the map automatically. May have to manually click the Locate Me button.</li>
+                                               <li></li>
+                                           </ul>
+                                       </li>
+                                   </ul>                 
 	                       </div>
 	                    </div>
 	                    <div class="tab-pane" id="manageBookings">
