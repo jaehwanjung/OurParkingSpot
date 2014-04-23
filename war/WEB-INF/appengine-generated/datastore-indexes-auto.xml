@@ -1,14 +1,14 @@
-<!-- Indices written at Tue, 22 Apr 2014 01:04:15 PDT -->
+<!-- Indices written at Tue, 22 Apr 2014 22:23:16 PDT -->
 
 <datastore-indexes>
 
-    <!-- Used 1 time in query history -->
+    <!-- Used 2 times in query history -->
     <datastore-index kind="Review" ancestor="false" source="auto">
         <property name="reviewSpotKey" direction="asc"/>
         <property name="reviewDate" direction="desc"/>
     </datastore-index>
 
-    <!-- Used 1 time in query history -->
+    <!-- Used 2 times in query history -->
     <datastore-index kind="Bookings" ancestor="false" source="auto">
         <property name="bookedSpotKey" direction="asc"/>
         <property name="bookFrom" direction="asc"/>

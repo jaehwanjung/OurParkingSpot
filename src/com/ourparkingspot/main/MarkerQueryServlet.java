@@ -53,23 +53,26 @@ public class MarkerQueryServlet extends HttpServlet {
 						+ reviewMsg + "</review>";
 			}
 			responseStr += "</reviews>";
-			
-			Query qb = new Query("Bookings").addSort("bookFrom", Query.SortDirection.ASCENDING);;
+
+			Query qb = new Query("Bookings").addSort("bookFrom", Query.SortDirection.ASCENDING);
+			;
 			Filter qbFilter = new FilterPredicate("bookedSpotKey", FilterOperator.EQUAL, spot.getKey());
 			qb.setFilter(qbFilter);
 			PreparedQuery pq3 = datastore.prepare(qb);
 			responseStr += "<bookings>";
 			for (Entity booking : pq3.asIterable()) {
 				Date bookFrom = (Date) booking.getProperty("bookFrom");
-				Date bookTo =  (Date) booking.getProperty("bookTo");
-				User bookedBy =  (User) booking.getProperty("bookedBy");
-				
-				responseStr += "<booking " + "bookFrom=\"" + bookFrom + "\" " + "bookTo=\"" + bookTo + "\" " + "bookedBy=\"" + bookedBy + "\" " + "/>";
-			}	
+				Date bookTo = (Date) booking.getProperty("bookTo");
+				User bookedBy = (User) booking.getProperty("bookedBy");
+				Date currentDate = new Date();
+				if (!currentDate.after(bookTo))
+					responseStr += "<booking " + "bookFrom=\"" + bookFrom + "\" " + "bookTo=\"" + bookTo + "\" "
+							+ "bookedBy=\"" + bookedBy + "\" " + "/>";
+			}
 			responseStr += "</bookings>";
 			responseStr += "</marker>";
 		}
-		responseStr += "</markers>"; 
+		responseStr += "</markers>";
 
 		System.out.println(responseStr);
 		resp.setContentType("text/html");
